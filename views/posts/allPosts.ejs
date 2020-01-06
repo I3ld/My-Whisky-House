@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/stylePost.css" />
+    <title><%= pageTitle %></title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <h2> Wszystkie posty</h2>
+        <div class="Posts">
+            <fieldset>
+                <legend>Posts</legend>
+
+                <% postsList.forEach(function(post){ %>
+                <div class="itemPost">
+                    <div class="postInfo">
+                    <img src="<%= post.user.picturePath %>">
+                    <div class="postDescribe">
+                        <label class="text"><i><%= post.text %><i></label><br>
+                        <label class="author"><%= post.user.firstName %> <%= post.user.lastName %></label> <br>
+                        <label class="product">[<%= post.product.name %> / <%= post.product.value %>% / <%= post.product.capacity %>L / <%= post.product.price %>zł]</label>
+                    </div>
+                    </div>
+                    <div class="postAction">
+                        <button class="edit" onclick="location.href='/posts/showEditForm?post_id=<%= post.id %>'">Edycja</button>
+                        <button class="delete" onclick="location.href='/posts/delete?post_id=<%= post.id %>'">Usuń</button>
+                    </div>
+                </div>
+                <hr />
+                <% }) %>
+
+            </fieldset>
+        </div>
+
+<% include ../partials/page-end %>

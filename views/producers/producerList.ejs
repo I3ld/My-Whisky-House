@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/style.css" />
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/styleRejestracja.css" />
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/styleIndex.css" />
+    <title><%= pageTitle %></title>
+</head>
+
+<% include ../partials/page-start %>
+    <main>
+        <fieldset>
+            <legend>Wszyscy producenci</legend>
+
+            <% producersList.forEach(function(producer){ %>
+
+            <div class="itemProduct">
+                <div class="itemDescribe">
+                    <label class="name"><%= producer.name %> | </label>
+                    <label class="country"><%= producer.country %> | </label>
+                    <label class="dateOfStart"><%= producer.dateOfStart %> | </label>
+                    <label class="owner"><%= producer.owner %>zł</label>
+                </div>
+                <div class="productAction">
+                    <button class="details" onclick="location.href='/producers/showEditForm?producer_id=<%= producer.id %>'">Edytuj</button>
+                    <button class="posts" onclick="location.href='/producers/delete?producer_id=<%= producer.id %>'">Usuń</button>
+                </div>
+            </div>
+            <hr />
+            <% }) %>
+
+        </fieldset>
+    </main>
+<% include ../partials/page-end %>

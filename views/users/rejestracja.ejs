@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/styleRejestracja.css" />
+    <script type="text/javascript" src="/js/rejestracjaValidator.js"></script>
+    <title>Rejestracja</title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <div class="errorsSpace">
+            <label class="errors" id="errors"></label>
+        </div>
+        <h1>Sign Up</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <form name="myForm" action="/users/<%= formAction %>" method="post" onsubmit="return validateForm()">
+            <div class="container">
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email">
+
+                <label for="first_name"><b>First name</b></label>
+                <input type="text" placeholder="Enter first name" name="first_name">
+
+                <label for="last_name"><b>Last name</b></label>
+                <input type="text" placeholder="Enter last name" name="last_name">
+
+                <label for="picturePath"><b>Picrure</b></label>
+                <input type="text" placeholder="Enter picrure path" name="picturePath">
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw">
+
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat">
+
+                <div class="clearfix">
+                    <button type="reset" class="resetbtn">Reset</button>
+                    <button type="submit" class="signupbtn" onclick="validateForm()">Zarejestruj</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+   <% include ../partials/page-end %>

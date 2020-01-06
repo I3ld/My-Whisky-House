@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: goldenrod;
+}
+
+main .detailsTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 15px;
+
+}
+
+main img {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    max-height: 400px;
+    max-width: 500px;
+}
+
+main .actionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+main .infoButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+.usunButton {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+.edytujButton {
+    padding: 14px 20px;
+    background-color: green;
+}
+
+.postyButton {
+    padding: 14px 20px;
+    background-color: #4287f5;
+}
+
+main .opisButton,
+.aromatButton,
+.smakButton,
+.finishButton {
+    padding: 14px 20px;
+    background-color: darkgoldenrod;
+    height: 50px;
+    width: 100px;
+    margin: 10px;
+}
+
+main .describeText {
+    background-color: darkgoldenrod;
+    margin: 10px;
+    padding: 0 20px;
+    min-width: 96%;
+    height: 200px;
+    width: 950px;
+    outline: none;
+    display: flex;
+    display: -webkit-flex;
+    line-height: 30px;
+    font-size: 20px;
+    resize: none;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.detailsAction {
+    min-width: 600px;
+    max-width: 600px;
+}
+
+.Cena {
+    font-size: 30px;
+}

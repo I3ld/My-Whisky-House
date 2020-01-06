@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/styleLogowanie.css" />
+    <script type="text/javascript" src="/js/logowanieValidator.js"></script>
+    <title>Logowanie</title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <div class="errorsSpace">
+            <label class="errors" id="errors"></label>
+            <% if(messages.loginError) { %>
+                    <label class="error" id="error" style="color:red"><%= messages.loginError %></label>
+                <% } %>
+        </div>
+        <div class="imgcontainer">
+            <img src="/Resources/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+        <form name="myForm" action="/auth/login" method="post" onsubmit="return validateForm()">
+            <div class="container">
+                <label for="email"><b>Email</b></label>
+                <input id="email" type="text" placeholder="Enter email" name="email">
+
+                <label for="psw"><b>Password</b></label>
+                <input id="password" type="password" placeholder="Enter password" name="password">
+
+                <button type="submit" class="submit" onclick="validateForm()">Login</button>
+                <button type="reset" class="resetbtn">Clear</button>
+            </div>
+        </form>
+    </main>
+
+<% include ../partials/page-end %>

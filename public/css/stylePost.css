@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: goldenrod;
+}
+
+main .detailsTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 15px;
+
+}
+
+main img {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    max-height: 400px;
+    max-width: 500px;
+}
+
+main .actionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+.DodajPostButton {
+    padding: 14px 20px;
+    background-color: green;
+}
+
+.inputPost {
+    background-color: darkgoldenrod;
+    margin: 10px 0 0 0;
+    min-width: 100px;
+    height: 150px;
+    width: 750px;
+    outline: none;
+    display: flex;
+    display: -webkit-flex;
+    line-height: 30px;
+    font-size: 20px;
+    resize: none;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.Cena {
+    font-size: 30px;
+}
+
+.itemPost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
+
+}
+
+.itemPost img {
+    text-align: center;
+    margin: 14px 0 12px 0;
+    max-height: 160px;
+    max-width: 180px;
+}
+
+
+.itemPost .postInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 15px;
+}
+
+.itemPost .postDescribe {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 15px;
+    flex-wrap: wrap;
+}
+
+.itemPost .postDescribe .author {
+    text-decoration: gold wavy underline;
+}
+
+.itemPost .postAction {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.itemPost .postAction button {
+    margin: 15px;
+    color: white;
+    background-color: goldenrod;
+    width: 100px;
+}
+
+.itemPost .postAction .delete {
+    background-color: red;
+}
+
+.itemPost .postAction .edit {
+    background-color: cadetblue;
+}
+
+.itemPost .postDescribe label {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+
+}

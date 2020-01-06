@@ -1,0 +1,100 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style the header */
+header {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style the menu */
+menu {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+menu li {
+    float: left;
+}
+
+menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+menu li a:hover:not(.active) {
+    background-color: goldenrod;
+}
+
+menu .active {
+    background-color: darkgoldenrod;
+}
+
+/* Style the main*/
+main {
+    background-color: #333;
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+}
+
+main .rateButtons {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+/* Style the footer */
+footer {
+    width: 100%;
+    background-color: black;
+    color: goldenrod;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+footer .footerInformations,
+footer .footerProducts {
+    margin: 10px;
+
+}
+
+footer .footerSocialMediaItems img {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 30px;
+    margin: 30px 7px 0 0;
+}
+
+footer .footerSocialMediaItems img:hover {
+    box-shadow: 0 0 15px 1px goldenrod;
+}

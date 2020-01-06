@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type='text/css' media='screen' href="/css/style.css" />
+    <link rel="stylesheet" type='text/css' media='screen' href="/css/styleDetails.css" />
+    <title><%= pageTitle %></title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <div class="detailsTop">
+            <div class="detailsInfo">
+
+                <hr />
+                <h4>SZCZEGÓŁY</h4>
+                <b>Nazwa: </b><label class="Nazwa"><%= product.name %></label> <br />
+                <b>Moc: </b><label class="Moc"><%= product.value %>%</label> <br />
+                <b>Pojemność: </b><label class="Pojemnosc"><%= product.capacity %>L</label> <br />
+                <b>Ocena: </b><label class="Ocena"><%= product.rate %>/10</label> <br />
+
+                <br />
+                <hr />
+                <h4>PRODUCENT</h4>
+
+                <% if (typeof product.producer != 'undefined') { %>
+                    <b>Nazwa: </b><label class="NazwaProducent"><%= product.producer.name %></label> <br />
+                    <b>Kraj: </b><label class="KrajProducent"><%= product.producer.country %><br />
+                    <b>Data założenia: </b><label class="DataProducent"><%= product.producer.dateOfStart %></label> <br />
+                    <b>Właściciel: </b><label class="WlascicielProducent"><%= product.producer.owner %></label> <br />
+                 <% } else { %>
+                    <b>Nazwa: </b><label class="NazwaProducent">N/A</label> <br />
+                    <b>Kraj: </b><label class="KrajProducent">N/A<br />
+                    <b>Data założenia: </b><label class="DataProducent">N/A</label> <br />
+                    <b>Właściciel: </b><label class="WlascicielProducent">N/A</label> <br />
+                 <% } %>
+
+            </div>
+            <img src="<%= product.picturePath %>" />
+            <div class="detailsAction">
+                <hr />
+                <label class="Cena"><%= product.price %>zł</label> <br />
+                <hr />
+                <label class="Notatka">
+                    <p><%= product.note %></p>
+                </label> <br />
+                <hr />
+                <div class="actionButtons">
+                    <button type="Posty" class="postyButton" onclick="location.href='/posts/showProductPosts?product_id=<%= product.id %>'">Posty</button>
+
+                    <button type="Edycja" class="edytujButton" onclick="location.href='/products/showEditForm?product_id=<%= product.id %>'">Edycja</button>
+
+                    <button type="Usun" class="usunButton" onclick="location.href='/products/delete?product_id=<%= product.id %>'">Usuń</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="detailsBottom">
+            <fieldset>
+                <legend>Opis</legend>
+                <textarea class="describeText"><%= product.description %></textarea>
+            </fieldset>
+        </div>
+
+    </main>
+
+   <% include ../partials/page-end %>

@@ -1,0 +1,31 @@
+<body>
+    <header>
+        <img src="/Resources/header_bg1.png" style="height: 250px">
+        <a href="products/index.ejs" style="padding: 0 200px 0 0"><img src="/Resources/logo_1_big.png"></a>
+        <img src="/Resources/header_bg2.png">
+    </header>
+
+    <menu>
+        <ul>
+            <li><a href="../products">Home</a></li>
+            <li><a href="../products/showNewForm">Dodaj nową whisky</a></li>
+            <li><a href="../producers/showNewForm">Dodaj producenta</a></li>
+            <li><a href="../posts/showPosts">Posty</a></li>
+            <li><a href="../producers">Producenci</a></li>
+            <% if(isUserLoggedIn) { %>
+                <li><a href="/auth/logout" style="background-color:#ff0000;opacity:0.85">Wyloguj się</a>
+            <% } else { %>
+                <li><a href="../users/showNewForm">Rejestracja</a></li>
+                <li><a href="../auth/showLogin">Logowanie</a></li>
+            <% } %>
+        </ul>
+    </menu>
+    <br>
+     <% if(isUserLoggedIn) { %>
+      <span class="userInfo">Zalogowany jako: <b><%= loggedUser.firstName %> <%= loggedUser.lastName %></b></span>
+    <% } %>
+
+    <% if(messages.authError) { %>
+        <div class="error"> <b><%= messages.authError %></b></div>
+    <% } %>
+    <br>

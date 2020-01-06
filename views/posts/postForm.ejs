@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" media='screen' href="/css/style.css" />
+    <link rel="stylesheet" media='screen' href="/css/styleEdycjaProdukt.css" />
+    <link rel="stylesheet" media='screen' href="/css/stylePost.css" />
+    <script type="text/javascript" src="/js/edycjaPostValidator.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <div class="errorsSpace">
+            <label class="errors" id="errors"></label>
+        </div>
+
+        <div class="container">
+            <div class="itemPost">
+                <div class="postInfo">
+                <img src="<%= post.user.picturePath %>">
+                <div class="postDescribe">
+                    <label class="text"><i><%= post.text %><i></label><br>
+                    <label class="product">[<%= post.product.name %> / <%= post.product.value %>% / <%= post.product.capcity %>L / <%= post.product.price %> zł]</label><br>
+                    <label class="author"><%= post.user.firstName %> <%= post.user.lastName %> </label>
+                </div>
+                </div>
+            </div>
+        </div>
+        <form name="myForm" action="/posts/<%= formAction %>" method="post" onsubmit="return validateForm()">
+            <input type="hidden" name="user" value="<%= post.user %>"></input>
+            <input type="hidden" name="product" value="<%= post.product %>"></input>
+            <input type="hidden" name="post_id" value="<%= post.id %>"></input>
+
+            <label for="title"><b>Edycja postu</b></label>
+            <input type="text" placeholder="Text" name="text" value="<%= post.text %>"></input>
+            <button type="submit" class="submit" onclick="validateForm()">Edytuj</button>
+            <button type="reset" class="resetbtn">Reset</button>
+        </form>
+    </main>
+
+    <% include ../partials/page-end %>

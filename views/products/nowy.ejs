@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" media='screen' href="/css/style.css" />
+    <link rel="stylesheet" media='screen' href="/css/styleEdycjaProdukt.css" />
+    <script type="text/javascript" src="/js/nowyValidator.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+
+<% include ../partials/page-start %>
+
+    <main>
+        <div class="errorsSpace">
+            <label class="errors" id="errors"></label>
+        </div>
+        <form name="myForm"  action="/products/<%= formAction %>"  method="post" onsubmit="return validateForm()">
+            <div class="container">
+                <% if( formAction == 'edit') { %>
+                     <input type="hidden" name="product_id" value="<%= product.id %>"></input>
+                <% } %>
+
+                <label for="name"><b>Nazwa</b></label>
+                <input type="text" name="name" <%= formAction ? 'add' : '' %>
+                value="<%= product.name %>"></input>
+
+                <label for="moc"><b>Moc</b></label>
+                <input type="text" name="moc" <%= formAction ? 'add' : '' %>
+                value="<%= product.value %>"></input>
+
+                <label for="pojemnosc"><b>Pojemność</b></label>
+                <input type="text" name="pojemnosc" <%= formAction ? 'add' : '' %>
+                value="<%= product.capacity %>"></input>
+
+                <label for="cena"><b>Cena</b></label>
+                <input type="text" name="cena"<%= formAction ? 'add' : '' %>
+                value="<%= product.price %>"></input>
+
+                <label for="ocena"><b>Ocena</b></label>
+                <div class="rateButtons" id="rateButtons">
+                    <input type="radio" name="rate" value="1">1<br>
+                    <input type="radio" name="rate" value="2">2<br>
+                    <input type="radio" name="rate" value="3">3<br>
+                    <input type="radio" name="rate" value="4">4<br>
+                    <input type="radio" name="rate" value="5">5<br>
+                    <input type="radio" name="rate" value="6">6<br>
+                    <input type="radio" name="rate" value="7">7<br>
+                    <input type="radio" name="rate" value="8">8<br>
+                    <input type="radio" name="rate" value="9">9<br>
+                    <input type="radio" name="rate" value="10">10<br>
+                </div>
+
+                <label for="notatka"><b>Notka</b></label>
+                <input type="text" name="notatka"<%= formAction ? 'add' : '' %>
+                value="<%= product.note %>"></input>
+
+                <label for="opis"><b>Opis</b></label>
+                <input type="text" name="opis" <%= formAction ? 'add' : '' %>
+                value="<%= product.description %>"></input>
+
+                <label for="zdjecie"><b>Zdjecie</b></label>
+                <input type="text" name="zdjecie" <%= formAction ? 'add' : '' %>
+                value="<%= product.picturePath %>"></input>
+
+                <label for="producent"><b>Producent</b></label>
+                <select name="producent" id="producent">
+                    <option value="default" id="producentOption" > Select producer [optional] </option>
+                </select>
+
+                <script type="text/javascript">
+                    var select = document.getElementById("producent");
+                    <% for(var i = 0; i < producersList.length; i++){ %>
+                        var option = document.createElement("OPTION");
+                        var txtBuilder = new String('<%= producersList[i].id %>.<%= producersList[i].name %>');
+                        var txt = document.createTextNode(txtBuilder);
+                        option.appendChild(txt);
+                        option.setAttribute("value",<%= producersList[i].id %>);
+                        option.setAttribute("id","producentOption");
+                        select.insertBefore(option,select.lastChild);
+                    <% } %>
+                </script>
+
+                <% if( formAction == 'edit') { %>
+                    <script type="text/javascript">
+                        var rates = document.getElementsByName("rate");
+                        var rateValue = <%= product.rate %>;
+
+                        for(var i = 0; i < rates.length; i++) {
+                        if((rates[i].value) == rateValue)
+                            rates[i].checked = true;
+                        }
+                    </script>
+                <% } %>
+
+                <% if(typeof product.producer !== "undefined") { %>
+                    <script type="text/javascript">
+                        var producers = document.getElementById("producent");
+                        var producerId = <%= product.producer.id %>;
+                        for(var i = 0; i < rates.length; i++) {
+                            if((producers[i].value) == producerId)
+                            producers[i].selected = true;
+                        }
+                    </script>
+                <% } %>
+
+                <br>
+                 <% if( formAction == 'edit') { %>
+                 <input type="hidden" name="product_id" value="<%= product.id %>"></input>
+                <% } %>
+                <button type="submit" class="submit" onclick="validateForm()"><% if( formAction == 'edit') { %> Edytuj <% } else { %> Dodaj <% } %></button>
+                <button type="reset" class="resetbtn">Reset</button>
+            </div>
+        </form>
+    </main>
+
+<% include ../partials/page-end %>
