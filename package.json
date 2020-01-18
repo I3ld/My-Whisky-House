@@ -1,10 +1,11 @@
 {
-  "name": "My-Whisky-House",
+  "name": "my-whisky-house",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "start": "nodemon app.js",
+    "test": "not speciefied"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +16,7 @@
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
-    "mongoose": "^5.8.1",
+    "mysql": "^2.17.1",
     "nodemon": "^2.0.2",
     "popups": "^1.1.3"
   },
