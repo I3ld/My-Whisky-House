@@ -1,5 +1,5 @@
-const User = require('../model/user');
 const Producer = require('../model/producer');
+const db = require('../db/mysql');
 
 //licznik id
 let nextId = 1;
@@ -23,10 +23,10 @@ class Product {
 
     //dodawanie obiektu do bazy
     static add(product) {
-        product.id = nextId;
-        productExtent.push(product);
-        nextId++;
-        return product;
+        return db.execute(
+            'insert into Product (Name, Volume, Capacity, Price, Rate, Picture, Note, Description, IdProducer) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [product.name, product.value, product.capacity, product.price, product.rate, product.picturePath, product.note, product.description, product.producer.IdProducer]
+          );
     }
     //pobranie listy obiektów
     //metoda nie powinna pobierać nadmiarowych danych
@@ -34,31 +34,36 @@ class Product {
     //które nie będą wyświetlane na liście
 
     static list() {
-        return productExtent;
+        return db.execute('select * from Product');
     }
+
     //edycja obiektu
     static edit(product) {
-        var id = parseInt(product.id);
-        productExtent[id-1] = product;
+        return db.execute(
+            'update Product set Name = ?, Volume = ?, Capacity = ?, Price = ?, Rate = ?, Picture = ?, Note = ?, Description = ? where IdProduct = ?',
+            [product.name, product.value, product.capacity, product.price, product.rate, product.picturePath, product.note, product.description, product.id]
+          );
     }
     //usuwanie obiektu po id
     static delete(id) {
-        var index = parseInt(id)-1;
-        productExtent.splice(index, 1);
-        nextId--;
+        db.execute(
+            'delete from Post where IdProduct = ?',
+            [id]
+          );
 
-        //po usunieciu trzebaobioznnoyc idwkazymprodukcie inext id
-        for (var i = 0; i < productExtent.length; i++) {
-            productExtent[i].id = i+1;
-        }
+        return db.execute(
+            'delete from Product where IdProduct = ?',
+            [id]
+          );
     }
 
     //pobieranie obiektu do widoku szczegółów
     //może być potrzebne pobranie dodatkowych danych
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
-        const product = productExtent[id - 1];
-        return product;
+        return db.execute('SELECT Product.IdProduct, Product.Name, Product.Volume, Product.Capacity,  Product.Price, Product.Rate, Product.Note, Product.Description, Product.Picture, Producer.IdProducer as ProducerIdProducer, Producer.Name as ProducerName, Producer.Country as ProducerCountry, Producer.Founded_Date as ProducerFounded_Date, Producer.Owner as ProducerOwner FROM Product LEFT JOIN Producer ON Product.IdProducer=Producer.IdProducer where Product.IdProduct = ?;',
+      [id]
+      );
     }
     //metoda resetuje stan bazy i dodaje rekordy testowe
     //przydatna do testów
@@ -89,6 +94,6 @@ class Product {
     }
 }
 
-Product.initData();
+//Product.initData();
 
 module.exports = Product;

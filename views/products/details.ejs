@@ -16,20 +16,20 @@
 
                 <hr />
                 <h4>SZCZEGÓŁY</h4>
-                <b>Nazwa: </b><label class="Nazwa"><%= product.name %></label> <br />
-                <b>Moc: </b><label class="Moc"><%= product.value %>%</label> <br />
-                <b>Pojemność: </b><label class="Pojemnosc"><%= product.capacity %>L</label> <br />
-                <b>Ocena: </b><label class="Ocena"><%= product.rate %>/10</label> <br />
+                <b>Nazwa: </b><label class="Nazwa"><%= product.Name %></label> <br />
+                <b>Moc: </b><label class="Moc"><%= product.Volume %>%</label> <br />
+                <b>Pojemność: </b><label class="Pojemnosc"><%= product.Capacity %>L</label> <br />
+                <b>Ocena: </b><label class="Ocena"><%= product.Rate %>/10</label> <br />
 
                 <br />
                 <hr />
                 <h4>PRODUCENT</h4>
 
-                <% if (typeof product.producer != 'undefined') { %>
-                    <b>Nazwa: </b><label class="NazwaProducent"><%= product.producer.name %></label> <br />
-                    <b>Kraj: </b><label class="KrajProducent"><%= product.producer.country %><br />
-                    <b>Data założenia: </b><label class="DataProducent"><%= product.producer.dateOfStart %></label> <br />
-                    <b>Właściciel: </b><label class="WlascicielProducent"><%= product.producer.owner %></label> <br />
+                <% if (typeof product.ProducerName != null) { %>
+                    <b>Nazwa: </b><label class="NazwaProducent"><%= product.ProducerName %></label> <br />
+                    <b>Kraj: </b><label class="KrajProducent"><%= product.ProducerCountry %><br />
+                    <b>Data założenia: </b><label class="DataProducent"><%= product.ProducerFounded_Date %></label> <br />
+                    <b>Właściciel: </b><label class="WlascicielProducent"><%= product.ProducerOwner %></label> <br />
                  <% } else { %>
                     <b>Nazwa: </b><label class="NazwaProducent">N/A</label> <br />
                     <b>Kraj: </b><label class="KrajProducent">N/A<br />
@@ -38,21 +38,21 @@
                  <% } %>
 
             </div>
-            <img src="<%= product.picturePath %>" />
+            <img src="<%= product.Picture %>" />
             <div class="detailsAction">
                 <hr />
-                <label class="Cena"><%= product.price %>zł</label> <br />
+                <label class="Cena"><%= product.Price %>zł</label> <br />
                 <hr />
                 <label class="Notatka">
-                    <p><%= product.note %></p>
+                    <p><%= product.Note %></p>
                 </label> <br />
                 <hr />
                 <div class="actionButtons">
-                    <button type="Posty" class="postyButton" onclick="location.href='/posts/showProductPosts?product_id=<%= product.id %>'">Posty</button>
+                    <button type="Posty" class="postyButton" onclick="location.href='/posts/showProductPosts?product_id=<%= product.IdProduct %>'">Posty</button>
 
-                    <button type="Edycja" class="edytujButton" onclick="location.href='/products/showEditForm?product_id=<%= product.id %>'">Edycja</button>
+                    <button type="Edycja" class="edytujButton" onclick="location.href='/products/showEditForm?product_id=<%= product.IdProduct %>'">Edycja</button>
 
-                    <button type="Usun" class="usunButton" onclick="location.href='/products/delete?product_id=<%= product.id %>'">Usuń</button>
+                    <button type="Usun" class="usunButton" onclick="location.href='/products/delete?product_id=<%= product.IdProduct %>'">Usuń</button>
 
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div class="detailsBottom">
             <fieldset>
                 <legend>Opis</legend>
-                <textarea class="describeText"><%= product.description %></textarea>
+                <textarea class="describeText"><%= product.Description %></textarea>
             </fieldset>
         </div>
 

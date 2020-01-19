@@ -18,24 +18,24 @@
         <form name="myForm"  action="/products/<%= formAction %>"  method="post" onsubmit="return validateForm()">
             <div class="container">
                 <% if( formAction == 'edit') { %>
-                     <input type="hidden" name="product_id" value="<%= product.id %>"></input>
+                     <input type="hidden" name="product_id" value="<%= product.IdProduct %>"></input>
                 <% } %>
 
                 <label for="name"><b>Nazwa</b></label>
                 <input type="text" name="name" <%= formAction ? 'add' : '' %>
-                value="<%= product.name %>"></input>
+                value="<%= product.Name %>"></input>
 
                 <label for="moc"><b>Moc</b></label>
                 <input type="text" name="moc" <%= formAction ? 'add' : '' %>
-                value="<%= product.value %>"></input>
+                value="<%= product.Volume %>"></input>
 
                 <label for="pojemnosc"><b>Pojemność</b></label>
                 <input type="text" name="pojemnosc" <%= formAction ? 'add' : '' %>
-                value="<%= product.capacity %>"></input>
+                value="<%= product.Capacity %>"></input>
 
                 <label for="cena"><b>Cena</b></label>
                 <input type="text" name="cena"<%= formAction ? 'add' : '' %>
-                value="<%= product.price %>"></input>
+                value="<%= product.Price %>"></input>
 
                 <label for="ocena"><b>Ocena</b></label>
                 <div class="rateButtons" id="rateButtons">
@@ -53,15 +53,15 @@
 
                 <label for="notatka"><b>Notka</b></label>
                 <input type="text" name="notatka"<%= formAction ? 'add' : '' %>
-                value="<%= product.note %>"></input>
+                value="<%= product.Note %>"></input>
 
                 <label for="opis"><b>Opis</b></label>
                 <input type="text" name="opis" <%= formAction ? 'add' : '' %>
-                value="<%= product.description %>"></input>
+                value="<%= product.Description %>"></input>
 
                 <label for="zdjecie"><b>Zdjecie</b></label>
                 <input type="text" name="zdjecie" <%= formAction ? 'add' : '' %>
-                value="<%= product.picturePath %>"></input>
+                value="<%= product.Picture %>"></input>
 
                 <label for="producent"><b>Producent</b></label>
                 <select name="producent" id="producent">
@@ -72,10 +72,10 @@
                     var select = document.getElementById("producent");
                     <% for(var i = 0; i < producersList.length; i++){ %>
                         var option = document.createElement("OPTION");
-                        var txtBuilder = new String('<%= producersList[i].id %>.<%= producersList[i].name %>');
+                        var txtBuilder = new String('<%= producersList[i].IdProducer %>.<%= producersList[i].Name %>');
                         var txt = document.createTextNode(txtBuilder);
                         option.appendChild(txt);
-                        option.setAttribute("value",<%= producersList[i].id %>);
+                        option.setAttribute("value",<%= producersList[i].IdProducer %>);
                         option.setAttribute("id","producentOption");
                         select.insertBefore(option,select.lastChild);
                     <% } %>
@@ -84,7 +84,7 @@
                 <% if( formAction == 'edit') { %>
                     <script type="text/javascript">
                         var rates = document.getElementsByName("rate");
-                        var rateValue = <%= product.rate %>;
+                        var rateValue = <%= product.Rate %>;
 
                         for(var i = 0; i < rates.length; i++) {
                         if((rates[i].value) == rateValue)
@@ -93,10 +93,10 @@
                     </script>
                 <% } %>
 
-                <% if(typeof product.producer !== "undefined") { %>
+                <% if(typeof product.ProducerIdProducer != null) { %>
                     <script type="text/javascript">
                         var producers = document.getElementById("producent");
-                        var producerId = <%= product.producer.id %>;
+                        var producerId = <%= product.ProducerIdProducer %>;
                         for(var i = 0; i < rates.length; i++) {
                             if((producers[i].value) == producerId)
                             producers[i].selected = true;
@@ -106,7 +106,7 @@
 
                 <br>
                  <% if( formAction == 'edit') { %>
-                 <input type="hidden" name="product_id" value="<%= product.id %>"></input>
+                 <input type="hidden" name="product_id" value="<%= product.IdProduct %>"></input>
                 <% } %>
                 <button type="submit" class="submit" onclick="validateForm()"><% if( formAction == 'edit') { %> Edytuj <% } else { %> Dodaj <% } %></button>
                 <button type="reset" class="resetbtn">Reset</button>

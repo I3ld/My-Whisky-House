@@ -72,6 +72,17 @@ app.use('/auth', authController.route);
 const producerController = require('./controller/producerController');
 app.use('/producers', authCheck, producerController.route);
 
+const db = require('./db/mysql');
+
+db.execute('select * from Users where IdUser = 1')
+  .then(([users, metadata]) => {
+    console.log(`->Log: Connected to DB!`);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+;
+
 app.listen(port, () => {
     console.log(`->Log: App is listening at port ${port}!`);
 });

@@ -15,26 +15,27 @@
         <fieldset>
             <legend>Wszystkie produkty</legend>
 
-            <% productsList.forEach(function(product){ %>
+
+            <% for(var i = 0; i < productsList.length; i++){ %>
 
             <div class="itemProduct">
-                <img src="<%= product.picturePath %>">
+                <img src="<%= productsList[i].Picture %>">
                 <div class="itemDescribe">
-                    <label class="name"><%= product.name %></label>
+                    <label class="name"><%= productsList[i].Name %></label>
                     <label>/</label>
-                    <label class="value"><%= product.value %>%</label>
+                    <label class="value"><%= productsList[i].Volume %>%</label>
                     <label>/</label>
-                    <label class="capcity"><%= product.capacity %>L</label>
+                    <label class="capcity"><%= productsList[i].Capacity %>L</label>
                     <label>/</label>
-                    <label class="price"><%= product.price %>zł</label>
+                    <label class="price"><%= productsList[i].Price %>zł</label>
                 </div>
                 <div class="productAction">
-                    <button class="details" onclick="location.href='/products/showDetails?product_id=<%= product.id %>'">Szczegóły</button>
-                    <button class="posts" onclick="location.href='/posts/showProductPosts?product_id=<%= product.id %>'">Posty</button>
+                    <button class="details" onclick="location.href='/products/showDetails?product_id=<%= productsList[i].IdProduct %>'">Szczegóły</button>
+                    <button class="posts" onclick="location.href='/posts/showProductPosts?product_id=<%= productsList[i].IdProduct %>'">Posty</button>
                 </div>
             </div>
             <hr />
-            <% }) %>
+            <% } %>
 
         </fieldset>
     </main>

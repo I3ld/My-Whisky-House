@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const db = require('../db/mysql');
 
 //licznik id
 let nextId = 1;
@@ -18,37 +19,44 @@ class User {
 
     //dodawanie obiektu do bazy
     static add(user) {
-        user.id = nextId;
-        userExtent.push(user);
-        nextId++;
-        return user;
-    }
 
+      return db.execute(
+        'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
+        [user.firstName, user.lastName, user.password, user.email, user.picturePath]
+      );
+    }
 
     //pobranie listy obiektów
     //metoda nie powinna pobierać nadmiarowych danych
     //(np. przez złączenia JOIN w relacyjnej bazie danych)
     //które nie będą wyświetlane na liście
     static list() {
-        return userExtent;
+      return db.execute('select * from Users');
     }
     //edycja obiektu
     static edit(user) {
-        var id = user.id;
-        userExtent[id - 1] = user;
+      return db.execute(
+        'update Users set FirstName = ?, LastName = ?, Password = ?, Email = ?, Picture = ? where IdUser = ?',
+        [user.firstName, user.lastName, user.password, user.email, user.picturePath, user.id]
+      );
     }
+
     //usuwanie obiektu po id
     static delete(id) {
-        var index = userExtent.indexOf(id);
-        userExtent.splice(index, 1);
+      return db.execute(
+        'delete from Users where IdUser = ?',
+        [id]
+      );
     }
     //pobieranie obiektu do widoku szczegółów
     //może być potrzebne pobranie dodatkowych danych
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
-        const user = userExtent[id - 1];
-        return user;
+      return db.execute('select * from Users where IdUser = ?',
+      [id]
+      );
     }
+    
     //metoda resetuje stan bazy i dodaje rekordy testowe
     //przydatna do testów
     static initData() {
@@ -73,7 +81,9 @@ class User {
     }
 
     static findByEmail(email) {
-      return userExtent.find(u => u.email == email);
+      return db.execute('select * from Users where Email = ?',
+      [email]
+      );
     }
 
     static hashPassword(plainPassword) {
@@ -82,14 +92,22 @@ class User {
       return bcrypt.hash(plainPassword, 12);
     }
 
-    comparePassword(plainPassword) {
+    static comparePassword(plainPassword,userId) {
       //wołanie asynchroniczne
       //zwraca promesę, a nie wynik bezpośrednio
-      return bcrypt.compare(plainPassword, this.password);
+      var flag;
+      db.execute('select Password from Users where IdUser = ?',
+      [userId]).then( ([data, metadata]) => { 
+        var rows = JSON.parse(JSON.stringify(data[0]));
+        flag = bcrypt.compare(plainPassword, rows.Password);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      return true;
     }
 }
 
-User.initData();
+//User.initData();
 
-//module.exports = moongose.model('User',userSchema);
 module.exports = User;

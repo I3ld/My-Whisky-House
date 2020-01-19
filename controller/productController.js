@@ -7,94 +7,137 @@ const Producer = require('../model/producer');
 const authCheck = require('../middleware/authCheck');
 
 router.get("/", (req, res, next) => {
-    const productsList = Product.list();
-    res.render('products/index', {
+  Product.list()
+    .then(([productsList, metadata]) => {
+      res.render('products/index', {
         productsList: productsList
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
 router.get("/showNewForm", authCheck, (req, res, next) => {
-    const producersList = Producer.list();
-    res.render('products/nowy', {
+  Producer.list()
+    .then(([producersList, metadata]) => {
+      res.render('products/nowy', {
         pageTitle: "New produkt",
         formAction: "add",
         producersList: producersList,
         product: {}
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
+
 });
 
 router.get("/showEditForm", authCheck, (req, res, next) => {
-    const productList = Product.list();
-    const producersList = Producer.list();
-    var id = parseInt(req.query.product_id);
-    const product = productList[id - 1];
-    res.render('products/nowy', {
+  var product;
+  var id = parseInt(req.query.product_id);
+
+  Product.details(id)
+    .then(([productData, metadata]) => {
+      product = productData[0];
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  Producer.list()
+    .then(([producersList, metadata]) => {
+      res.render('products/nowy', {
         pageTitle: "Edit product",
         formAction: "edit",
         producersList: producersList,
         product: product
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
 router.post("/add", authCheck, (req, res, next) => {
-    var producerId = req.body.producent;
-    var selectedProducer = Producer.list()[producerId - 1];
-    const newProduct = new Product(req.body.name,
-                                    req.body.moc,
-                                    req.body.pojemnosc,
-                                    req.body.cena,
-                                    req.body.rate,
-                                    req.body.zdjecie,
-                                    req.body.notatka,
-                                    req.body.opis,
-                                    selectedProducer);
-    Product.add(newProduct);
-    res.redirect("/products");
+  var producerId = req.body.producent;
+
+  Producer.details(producerId)
+    .then(([producerData, metadata]) => {
+      const newProduct = new Product(req.body.name,
+        req.body.moc,
+        req.body.pojemnosc,
+        req.body.cena,
+        req.body.rate,
+        req.body.zdjecie,
+        req.body.notatka,
+        req.body.opis,
+        producerData[0]);
+
+      Product.add(newProduct);
+      res.redirect("/products");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  
 });
 
 router.post("/edit", authCheck, (req, res, next) => {
-    var productId = parseInt(req.body.product_id);
-    var producerId = req.body.producent;
-    var selectedProducer = Producer.list()[producerId - 1];
-    const editProduct = new Product(req.body.name,
-                                    req.body.moc,
-                                    req.body.pojemnosc,
-                                    req.body.cena,
-                                    req.body.rate,
-                                    req.body.zdjecie,
-                                    req.body.notatka,
-                                    req.body.opis,
-                                    selectedProducer,
-                                    req.body.product_id);
-    Product.edit(editProduct);
-    res.redirect("/products/showProduct?product_id="+productId);
-});
+  var productId = parseInt(req.body.product_id);
+  var producerId = req.body.producent;
 
-router.get("/showProductPosts", authCheck, (req, res, next) => {
-    var id = parseInt(req.query.product_id);
-    const product = Product.details(id);
-    res.render('products/post', {
-        pageTitle: "Show product posts",
-        formAction: "productPosts",
-        product: product
+  Producer.details(producerId)
+    .then(([producerData, metadata]) => {
+
+      const editProduct = new Product(req.body.name,
+        req.body.moc,
+        req.body.pojemnosc,
+        req.body.cena,
+        req.body.rate,
+        req.body.zdjecie,
+        req.body.notatka,
+        req.body.opis,
+        producerData[0],
+        productId);
+      Product.edit(editProduct);
+      res.redirect("/products/showDetails?product_id=" + productId);
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
+
 router.get("/showDetails", authCheck, (req, res, next) => {
-    var id = parseInt(req.query.product_id);
-    const product = Product.details(id);
-    res.render('products/details', {
+  var id = parseInt(req.query.product_id);
+
+  Product.details(id)
+    .then(([product, metadata]) => {
+      res.render('products/details', {
         pageTitle: "Show product",
         formAction: "details",
-        product: product
+        product: product[0]
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
 router.get("/delete", authCheck, (req, res, next) => {
-    var id = parseInt(req.query.product_id);
-    Post.deleteProductPosts(id);
-    Product.delete(id);
-    res.redirect("/products");
+  var id = parseInt(req.query.product_id);
+
+  Product.delete(id)
+    .then(([product, metadata]) => {
+      res.redirect("/products");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
 });
 
 module.exports.route = router;

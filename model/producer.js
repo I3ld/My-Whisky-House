@@ -1,5 +1,6 @@
 const User = require('../model/user');
 const Product = require('../model/product');
+const db = require('../db/mysql');
 
 //licznik id
 let nextId = 1;
@@ -18,40 +19,46 @@ class Producer {
 
     //dodawanie obiektu do bazy
     static add(producer) {
-        producer.id = nextId;
-        producerExtent.push(producer);
-        nextId++;
-        return producer;
+        return db.execute(
+            'insert into Producer (Name, Country, Founded_Date, Owner) values (?, ?, ?, ?)',
+            [producer.name, producer.country, producer.dateOfStart, producer.owner]
+          );
     }
+
     //pobranie listy obiektów
     //metoda nie powinna pobierać nadmiarowych danych
     //(np. przez złączenia JOIN w relacyjnej bazie danych)
     //które nie będą wyświetlane na liście
     static list() {
-        return producerExtent;
+        return db.execute('select * from Producer');
     }
+
     //edycja obiektu
     static edit(producer) {
-        var id = parseInt(producer.id);
-        producerExtent[id-1] = producer;
+        return db.execute(
+            'update Producer set Name = ?, Country = ?, Founded_Date = ?, Owner = ? where idProducer = ?',
+            [producer.name, producer.country, producer.dateOfStart, producer.owner, ]
+          );
     }
     //usuwanie obiektu po id
     static delete(id) {
-        var index = parseInt(id-1);
-        producerExtent.splice(index, 1);
-        nextId--;
+        db.execute(
+            'update Product set IdProducer = NULL where IdProducer = ?;',
+            [id]
+          );
 
-        //po usunieciu trzebaobioznnoyc idwkazymprodukcie inext id
-        for (var i = 0; i < producerExtent.length; i++) {
-            producerExtent[i].id = i+1;
-        }
+        return db.execute(
+            'delete from Producer where IdProducer = ?',
+            [id]
+          );
     }
     //pobieranie obiektu do widoku szczegółów
     //może być potrzebne pobranie dodatkowych danych
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
-        const producer = producerExtent[id - 1];
-        return producer;
+        return db.execute('select * from Producer where IdProducer = ?',
+      [id]
+      );
     }
     //metoda resetuje stan bazy i dodaje rekordy testowe
     //przydatna do testów
@@ -65,6 +72,6 @@ class Producer {
     }
 }
 
-Producer.initData();
+//Producer.initData();
 
 module.exports = Producer;

@@ -18,14 +18,14 @@
 
             <div class="itemProduct">
                 <div class="itemDescribe">
-                    <label class="name"><%= producer.name %> | </label>
-                    <label class="country"><%= producer.country %> | </label>
-                    <label class="dateOfStart"><%= producer.dateOfStart %> | </label>
-                    <label class="owner"><%= producer.owner %>zł</label>
+                    <label class="name"><%= producer.Name %> | </label>
+                    <label class="country"><%= producer.Country %> | </label>
+                    <label class="dateOfStart"><%= producer.Founded_Date %> | </label>
+                    <label class="owner"><%= producer.Owner %>zł</label>
                 </div>
                 <div class="productAction">
-                    <button class="details" onclick="location.href='/producers/showEditForm?producer_id=<%= producer.id %>'">Edytuj</button>
-                    <button class="posts" onclick="location.href='/producers/delete?producer_id=<%= producer.id %>'">Usuń</button>
+                    <button class="details" onclick="location.href='/producers/showEditForm?producer_id=<%= producer.IdProducer %>'">Edytuj</button>
+                    <button class="posts" onclick="location.href='/producers/delete?producer_id=<%= producer.IdProducer %>'">Usuń</button>
                 </div>
             </div>
             <hr />

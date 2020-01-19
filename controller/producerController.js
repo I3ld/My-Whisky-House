@@ -4,11 +4,16 @@ const router = express.Router();
 const Producer = require('../model/producer');
 
 router.get("/", (req, res, next) => {
-    const producersList = Producer.list();
-    res.render('producers/producerList', {
-        pageTitle: "All producers",
-        producersList: producersList
-    });
+    Producer.list()
+      .then( ([producersList, metadata]) => {
+        res.render('producers/producerList', {
+            pageTitle: "All producers",
+            producersList: producersList
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
 });
 
 router.get("/showNewForm", (req, res, next) => {
@@ -20,14 +25,18 @@ router.get("/showNewForm", (req, res, next) => {
 });
 
 router.get("/showEditForm", (req, res, next) => {
-    const producerList = Producer.list();
     var id = parseInt(req.query.producer_id);
-    const producer = producerList[id - 1];
-    res.render('producers/producerForm', {
-        pageTitle: "Edit producer",
-        formAction: "edit",
-        producer: producer
-    });
+    Producer.details(id)
+      .then( ([producer, metadata]) => {
+        res.render('producers/producerForm', {
+            pageTitle: "Edit producer",
+            formAction: "edit",
+            producer: producer[0]
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
 });
 
 router.post("/add", (req, res, next) => {

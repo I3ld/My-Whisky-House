@@ -6,15 +6,6 @@
     <link rel="stylesheet" media='screen' href="/css/style.css" />
     <link rel="stylesheet" media='screen' href="/css/styleEdycjaProdukt.css" />
     <script type="text/javascript" src="/js/nowyProducerValidator.js"></script>
-    <script type="text/javascript">
-        var rates = document.getElementsByName("rate");
-        var id = 2;
-
-        for(var i = 0; i < rates.length; i++) {
-           if((rates[i].value) == id)
-               rates[i].checked = true;
-         }
-    </script>
     <title><%= pageTitle %></title>
 </head>
 
@@ -29,22 +20,22 @@
 
                 <label for="name"><b>Nazwa</b></label>
                 <input type="text" name="name" <%= formAction ? 'add' : '' %>
-                value="<%= producer.name %>"></input>
+                value="<%= producer.Name %>"></input>
 
                 <label for="country"><b>Kraj</b></label>
                 <input type="text" name="country" <%= formAction ? 'add' : '' %>
-                value="<%= producer.country %>"></input>
+                value="<%= producer.Country %>"></input>
 
                 <label for="dateOfStart"><b>Data założenia</b></label>
                 <input type="text" name="dateOfStart" <%= formAction ? 'add' : '' %>
-                value="<%= producer.dateOfStart %>"></input>
+                value="<%= producer.Founded_Date %>"></input>
 
                 <label for="owner"><b>Założyciel</b></label>
                 <input type="text" name="owner"<%= formAction ? 'add' : '' %>
-                value="<%= producer.owner %>"></input>
+                value="<%= producer.Owner %>"></input>
 
                  <% if( formAction == 'edit') { %>
-                 <input type="hidden" name="producer_id" value="<%= producer.id %>"></input>
+                 <input type="hidden" name="producer_id" value="<%= producer.IdProducer %>"></input>
                 <% } %>
                 <button type="submit" class="submit" onclick="validateForm()"><% if( formAction == 'edit') { %> Edytuj <% } else { %> Dodaj <% } %></button>
                 <button type="reset" class="resetbtn">Reset</button>

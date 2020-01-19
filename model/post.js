@@ -1,5 +1,6 @@
 const User = require('../model/user');
 const Product = require('../model/product');
+const db = require('../db/mysql');
 
 //licznik id
 let nextId = 1;
@@ -16,11 +17,11 @@ class Post {
     }
 
     //dodawanie obiektu do bazy
-    static add(post) {
-        post.id = nextId;
-        postExtent.push(post);
-        nextId++;
-        return post;
+    static add(text,userId,productId) {
+        return db.execute(
+            'insert into Post (Text, IdProduct, IdUser) values (?, ?, ?)',
+            [text, productId, userId]
+          );
     }
 
     //pobranie listy obiektów
@@ -28,60 +29,41 @@ class Post {
     //(np. przez złączenia JOIN w relacyjnej bazie danych)
     //które nie będą wyświetlane na liście
     static list() {
-        return postExtent;
+        return db.execute('select * from Post');
     }
 
     static listUserPosts(idUser) {
-        var posts = [];
-        for (var i = 0; i < postExtent.length; i++) {
-            if(postExtent[i].user.id == idUser){
-                posts.push(postExtent[i]);
-            }
-        }
-        return posts;
+        return db.execute('SELECT Post.IdPost, Post.Text, Users.Picture as UserPicture, Users.IdUser as UserId, Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Users.IdUser = ?;',
+        [idUser]);
+    }
+
+    static listProductPosts(idProduct) {
+        return db.execute('select Post.IdPost, Post.Text, Users.FirstName as UserFirstName, Users.LastName as UserLastname, Users.Picture UserPicture, Users.DateOfBirth as UserDateOfBirth from Post LEFT JOIN Users ON Users.IdUser=Post.IdUser where IdProduct = ?;',
+        [idProduct]);
     }
 
     //edycja obiektu
     static edit(id,text) {
-        const post = postExtent[id - 1];
-        post.text = text;
+        return db.execute(
+            'update Post set Text = ? where IdPost = ?',
+            [text, id]
+          );
     }
 
     //usuwanie obiektu po id
-    static delete(id) {
-        var index = parseInt(id)-1;
-        postExtent.splice(index, 1);
-        nextId--;
-        //po usunieciu trzebaobioznnoyc idwkazymprodukcie inext id
-        for (var i = 0; i < postExtent.length; i++) {
-            postExtent[i].id = i+1;
-        }
-    }
-
-    static deleteProductPosts(productId) {
-        var toDelete = [];
-        for (var i = 0; i < postExtent.length; i++) {
-            if(postExtent[i].product.id == productId){
-                toDelete.push(postExtent[i].id);
-            }
-        }
-
-        for(var i = 0; i < toDelete.length; i++){
-            postExtent.splice((toDelete[i]-1), 1);
-            nextId--;
-        }
-
-        for (var i = 0; i < postExtent.length; i++) {
-                postExtent[i].id = i+1;
-        }
+    static delete(id,userId) {
+        return db.execute(
+            'delete from Post where IdPost = ? and IdUser = ?',
+            [id,userId]
+          );
     }
 
     //pobieranie obiektu do widoku szczegółów
     //może być potrzebne pobranie dodatkowych danych
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
-        const post = postExtent[id - 1];
-        return post;
+        return db.execute('SELECT Post.IdPost, Post.Text, Users.IdUser as UserId, Users.Picture as UserPicture,  Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.IdProduct as ProductId, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser  INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Post.IdPost = ?;',
+      [id]);
     }
 
     //metoda resetuje stan bazy i dodaje rekordy testowe
@@ -99,6 +81,6 @@ class Post {
     }
 }
 
-Post.initData();
+//Post.initData();
 
 module.exports = Post;

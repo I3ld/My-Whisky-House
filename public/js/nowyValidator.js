@@ -56,11 +56,11 @@ function validateForm() {
         capacity.setCustomValidity('');
     }
 
-    if (!(capacity.value).match("^[0-9]{1,5}\,[0-9]{1}$")) {
+    if (!(capacity.value).match("^[0-9]{1,5}\.[0-9]{1}$")) {
         capacity.setCustomValidity("Capacity invalid!");
         capacity.style.borderColor = "red";
         capacity.style.borderWidth = "thick";
-        errorsTab += "Capacity regex invalid (ex: 5,0)! <br />";
+        errorsTab += "Capacity regex invalid (ex: 5.0)! <br />";
     } else {
         capacity.style.borderColor = "green";
         capacity.style.borderWidth = "thick";
@@ -80,11 +80,11 @@ function validateForm() {
     }
 
 
-    if (!(price.value).match("^[0-9]{1,7}\,[0-9]{1,2}$")) {
+    if (!(price.value).match("^[0-9]{1,7}\.[0-9]{1,2}$")) {
         price.setCustomValidity("Price invalid!");
         price.style.borderColor = "red";
         price.style.borderWidth = "thick";
-        errorsTab += "Price regex invalid (ex: 234,33)! <br />";
+        errorsTab += "Price regex invalid (ex: 234.33)! <br />";
     } else {
         price.style.borderColor = "green";
         price.style.borderWidth = "thick";

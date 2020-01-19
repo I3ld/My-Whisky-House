@@ -49,13 +49,13 @@ ALTER TABLE Post ADD CONSTRAINT Post_Users FOREIGN KEY Post_Users (IdUser)
 ALTER TABLE Product ADD CONSTRAINT Product_Producer FOREIGN KEY Product_Producer (IdProducer)
     REFERENCES Producer (IdProducer);
 
-INSERT INTO Users (FirstName, LastName, Password, Email, DateOfBirth, Picture)
+INSERT INTO Users (Email, FirstName, LastName, Password, DateOfBirth, Picture)
 VALUES ('test@gmail.com','Jan', 'Kowalski', '$2a$12$62YB3JPAGwNHaG.Sg.7GX.KQabHMIyXjk/dQpF4JZEQy0vMymRmx6' ,'1999-02-14', 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Stanis%C5%82aw_Piotrowicz_Kancelaria_Senatu_2005.JPG');
 
-INSERT INTO Users (FirstName, LastName, Password, Email, DateOfBirth, Picture)
+INSERT INTO Users (Email, FirstName, LastName, Password, DateOfBirth, Picture)
 VALUES ('ann3432@gmail.com','Anna', 'Wiśniewska','$2a$12$62YB3JPAGwNHaG.Sg.7GX.KQabHMIyXjk/dQpF4JZEQy0vMymRmx6','1984-05-22','http://jan.kowalski.mycv.pl/users/k/kowalski4/35_kowalski4.jpg');
 
-INSERT INTO Users (FirstName, LastName, Password, Email, DateOfBirth, Picture)
+INSERT INTO Users (Email, FirstName, LastName, Password, DateOfBirth, Picture)
 VALUES ('endriu.12@wp.pl','Andrzej', 'Nowak','$2a$12$62YB3JPAGwNHaG.Sg.7GX.KQabHMIyXjk/dQpF4JZEQy0vMymRmx6','1992-12-04','https://i1.rgstatic.net/ii/profile.image/356210420273152-1461938590529_Q512/Jan_Kowalski59.jpg');
 
 INSERT INTO Producer (Name, Country, Founded_Date, Owner)

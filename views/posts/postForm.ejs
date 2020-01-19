@@ -19,23 +19,22 @@
 
         <div class="container">
             <div class="itemPost">
-                <div class="postInfo">
-                <img src="<%= post.user.picturePath %>">
-                <div class="postDescribe">
-                    <label class="text"><i><%= post.text %><i></label><br>
-                    <label class="product">[<%= post.product.name %> / <%= post.product.value %>% / <%= post.product.capcity %>L / <%= post.product.price %> zł]</label><br>
-                    <label class="author"><%= post.user.firstName %> <%= post.user.lastName %> </label>
+                    <div class="postInfo">
+                    <img src="<%= post.UserPicture %>">
+                    <div class="postDescribe">
+                        <label class="text"><i><%= post.Text %><i></label><br>
+                        <label class="author"><%= post.UserFirstName %> <%= post.UserLastName %></label> <br>
+                        <label class="product">[<%= post.ProductName %> / <%= post.ProductVolume %>% / <%= post.ProductCapacity %>L / <%= post.ProductPrice %>zł]</label>
+                    </div>
                 </div>
-                </div>
-            </div>
         </div>
         <form name="myForm" action="/posts/<%= formAction %>" method="post" onsubmit="return validateForm()">
-            <input type="hidden" name="user" value="<%= post.user %>"></input>
-            <input type="hidden" name="product" value="<%= post.product %>"></input>
-            <input type="hidden" name="post_id" value="<%= post.id %>"></input>
+            <input type="hidden" name="user" value="<%= post.IdUser %>"></input>
+            <input type="hidden" name="product" value="<%= post.IdProduct %>"></input>
+            <input type="hidden" name="post_id" value="<%= post.IdPost %>"></input>
 
             <label for="title"><b>Edycja postu</b></label>
-            <input type="text" placeholder="Text" name="text" value="<%= post.text %>"></input>
+            <input type="text" placeholder="Text" name="text" value="<%= post.Text %>"></input>
             <button type="submit" class="submit" onclick="validateForm()">Edytuj</button>
             <button type="reset" class="resetbtn">Reset</button>
         </form>

@@ -17,20 +17,20 @@
 
                 <hr />
                 <h4>SZCZEGÓŁY</h4>
-                <b>Nazwa: </b><label class="Nazwa"><%= product.name %></label> <br />
-                <b>Moc: </b><label class="Moc"><%= product.value %>%</label> <br />
-                <b>Pojemność: </b><label class="Pojemnosc"><%= product.capacity %>L</label> <br />
-                <b>Ocena: </b><label class="Ocena"><%= product.rate %>/10</label> <br />
+                <b>Nazwa: </b><label class="Nazwa"><%= product.Name %></label> <br />
+                <b>Moc: </b><label class="Moc"><%= product.Volume %>%</label> <br />
+                <b>Pojemność: </b><label class="Pojemnosc"><%= product.Capacity %>L</label> <br />
+                <b>Ocena: </b><label class="Ocena"><%= product.Rate %>/10</label> <br />
 
                 <br />
                 <hr />
                 <h4>PRODUCENT</h4>
 
-                 <% if (typeof product.producer != 'undefined') { %>
-                    <b>Nazwa: </b><label class="NazwaProducent"><%= product.producer.name %></label> <br />
-                    <b>Kraj: </b><label class="KrajProducent"><%= product.producer.country %><br />
-                    <b>Data założenia: </b><label class="DataProducent"><%= product.producer.dateOfStart %></label> <br />
-                    <b>Właściciel: </b><label class="WlascicielProducent"><%= product.producer.owner %></label> <br />
+                 <% if (typeof product.ProducerName != null) { %>
+                    <b>Nazwa: </b><label class="NazwaProducent"><%= product.ProducerName %></label> <br />
+                    <b>Kraj: </b><label class="KrajProducent"><%= product.ProducerCountry %><br />
+                    <b>Data założenia: </b><label class="DataProducent"><%= product.ProducerFounded_Date %></label> <br />
+                    <b>Właściciel: </b><label class="WlascicielProducent"><%= product.ProducerOwner %></label> <br />
                  <% } else { %>
                     <b>Nazwa: </b><label class="NazwaProducent">N/A</label> <br />
                     <b>Kraj: </b><label class="KrajProducent">N/A<br />
@@ -39,11 +39,11 @@
                  <% } %>
 
             </div>
-            <img src="<%= product.picturePath %>" />
+            <img src="<%= product.Picture %>" />
 
             <div class="addPost">
                 <form name="myForm"  action="/posts/<%= formAction %>"  method="post" onsubmit="return validateForm()">
-                    <input type="hidden" name="product_id" value="<%= product.id %>"></input>
+                    <input type="hidden" name="product_id" value="<%= product.IdProduct %>"></input>
                     <fieldset>
                         <legend>Nowy Post</legend>
                         <input type="text" class="inputPost" name="inputPost">
@@ -61,10 +61,10 @@
                 <% postsList.forEach(function(post){ %>
                     <div class="itemPost">
                         <div class="postInfo">
-                            <img src="<%= post.user.picturePath %>">
+                            <img src="<%= post.UserPicture %>">
                             <div class="postDescribe">
-                                <label class="text"><i><%= post.text %><i></label><br> </label><br>
-                                <label class="author"><%= post.user.firstName %> <%= post.user.lastName %></label>
+                                <label class="text"><i><%= post.Text %><i></label><br> </label><br>
+                                <label class="author"><%= post.UserFirstName %> <%= post.UserLastname %></label>
                             </div>
                         </div>
                     </div>

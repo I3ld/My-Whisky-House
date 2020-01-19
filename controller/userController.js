@@ -4,9 +4,14 @@ const router = express.Router();
 const User = require('../model/user');
 
 router.get("/", (req, res, next) => {
-    const userList = User.list();
-    res.render('users/userList', {
-        userList: userList
+    User.list()
+    .then( ([userList, metadata]) => {
+        res.render('users/userList', {
+            userList: userList
+        });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
@@ -19,13 +24,18 @@ router.get("/showNewForm", (req, res, next) => {
 });
 
 router.get("/showLoginForm", (req, res, next) => {
-    const userList = User.list();
-    var id = parseInt(req.query.user_id);
-    const user = userList[id-1];
-    res.render('auth/logowanie', {
-        pageTitle: "Login",
-        formAction: "login",
-        user: user
+    User.list()
+    .then( ([userList, metadata]) => {
+        var id = parseInt(req.query.user_id);
+        const user = userList[id-1];
+        res.render('auth/logowanie', {
+            pageTitle: "Login",
+            formAction: "login",
+            user: user
+        });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
@@ -37,7 +47,6 @@ router.post("/add", (req, res, next) => {
             User.add(newUser);
             req.flash('authError','Witaj ' + req.body.first_name + ' ' +req.body.last_name + '. Konto zostało utworzone !');
             res.redirect("/products");
-            console.log(User.list());
         })
         .catch(err => {
             console.log(err);

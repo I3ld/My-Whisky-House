@@ -10,21 +10,26 @@ router.get('/showLogin', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  const user = User.findByEmail(email);
-  if(user) {
-    user.comparePassword(password)
-      .then(result => {
-        if(result) {
-          req.session.isUserLoggedIn = true;
-          req.session.loggedUser = user;
-          res.redirect('/products');
+
+      User.findByEmail(email)
+      .then( ([data, metadata]) => {
+        var rows = JSON.parse(JSON.stringify(data[0]));
+        if(rows.IdUser) {
+          var result = User.comparePassword(password,rows.IdUser);
+              if(result) {
+                req.session.isUserLoggedIn = true;
+                req.session.loggedUser = new User(rows.Email, rows.FirstName, rows.LastName, rows.Picture, rows.Password, rows.IdUser);
+                res.redirect('/products');
+              } else {
+                invalidEmailOrPassword(req, res);
+              }
         } else {
           invalidEmailOrPassword(req, res);
         }
       })
-  } else {
-    invalidEmailOrPassword(req, res);
-  }
+      .catch(err => {
+        console.log(err);
+      });
 });
 
 router.get('/logout', (req, res, next) => {

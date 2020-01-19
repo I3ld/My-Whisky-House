@@ -39,11 +39,11 @@ function validateForm() {
         dateOfStart.setCustomValidity('');
     }
 
-    if (!(dateOfStart.value).match(/^(0?[1-9]|[12][0-9]|3[01])[\-](0?[1-9]|1[012])[\-]\d{4}$/)) {
+    if (!(dateOfStart.value).match(/^[\-]\d{4}[\-](0?[1-9]|1[012])(0?[1-9]|[12][0-9]|3[01])$/)) {
         dateOfStart.setCustomValidity("Name invalid!");
         dateOfStart.style.borderColor = "red";
         dateOfStart.style.borderWidth = "thick";
-        errorsTab += "Date of start regex invalid! (ex. 22-01-2019) <br />";
+        errorsTab += "Date of start regex invalid! (ex. 2019-01-22) <br />";
     } else {
         dateOfStart.style.borderColor = "green";
         dateOfStart.setCustomValidity('');

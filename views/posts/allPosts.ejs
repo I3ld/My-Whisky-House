@@ -19,16 +19,16 @@
                 <% postsList.forEach(function(post){ %>
                 <div class="itemPost">
                     <div class="postInfo">
-                    <img src="<%= post.user.picturePath %>">
+                    <img src="<%= post.UserPicture %>">
                     <div class="postDescribe">
-                        <label class="text"><i><%= post.text %><i></label><br>
-                        <label class="author"><%= post.user.firstName %> <%= post.user.lastName %></label> <br>
-                        <label class="product">[<%= post.product.name %> / <%= post.product.value %>% / <%= post.product.capacity %>L / <%= post.product.price %>zł]</label>
+                        <label class="text"><i><%= post.Text %><i></label><br>
+                        <label class="author"><%= post.UserFirstName %> <%= post.UserLastName %></label> <br>
+                        <label class="product">[<%= post.ProductName %> / <%= post.ProductVolume %>% / <%= post.ProductCapacity %>L / <%= post.ProductPrice %>zł]</label>
                     </div>
                     </div>
                     <div class="postAction">
-                        <button class="edit" onclick="location.href='/posts/showEditForm?post_id=<%= post.id %>'">Edycja</button>
-                        <button class="delete" onclick="location.href='/posts/delete?post_id=<%= post.id %>'">Usuń</button>
+                        <button class="edit" onclick="location.href='/posts/showEditForm?post_id=<%= post.IdPost %>'">Edycja</button>
+                        <button class="delete" onclick="location.href='/posts/delete?post_id=<%= post.IdPost %>'">Usuń</button>
                     </div>
                 </div>
                 <hr />
