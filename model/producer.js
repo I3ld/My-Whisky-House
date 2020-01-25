@@ -2,11 +2,6 @@ const User = require('../model/user');
 const Product = require('../model/product');
 const db = require('../db/mysql');
 
-//licznik id
-let nextId = 1;
-//ekstensja klasy (wszystkie obiekty)
-const producerExtent = [];
-
 class Producer {
     //parametr id jest na końcu, bo jest opcjonalny
     constructor(name, country, dateOfStart, owner, id) {
@@ -60,18 +55,6 @@ class Producer {
       [id]
       );
     }
-    //metoda resetuje stan bazy i dodaje rekordy testowe
-    //przydatna do testów
-    static initData() {
-        //usuwamy zawartość tablicy
-        producerExtent.splice(0, Producer.length);
-        //resetujemy licznik id
-        nextId = 1;
-        Producer.add(new Producer('Destylarnia Strathisla', 'Wielka Brytania','22-01-1786','John Collins'));
-        Producer.add(new Producer('Pernod Ricard SA', ' Francja','08-11-1975','Pernod Anise'));
-    }
 }
-
-//Producer.initData();
 
 module.exports = Producer;

@@ -2,11 +2,6 @@ const User = require('../model/user');
 const Product = require('../model/product');
 const db = require('../db/mysql');
 
-//licznik id
-let nextId = 1;
-//ekstensja klasy (wszystkie obiekty)
-const postExtent = [];
-
 class Post {
     //parametr id jest na końcu, bo jest opcjonalny
     constructor(text, user, product, id) {
@@ -65,22 +60,6 @@ class Post {
         return db.execute('SELECT Post.IdPost, Post.Text, Users.IdUser as UserId, Users.Picture as UserPicture,  Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.IdProduct as ProductId, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser  INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Post.IdPost = ?;',
       [id]);
     }
-
-    //metoda resetuje stan bazy i dodaje rekordy testowe
-    //przydatna do testów
-    static initData() {
-        //usuwamy zawartość tablicy
-        postExtent.splice(0, Post.length);
-        //resetujemy licznik id
-        nextId = 1;
-        Post.add(new Post('Polecam dobre !',User.list()[0], Product.list()[1]));
-        Post.add(new Post('Polecam dobrev2 !',User.list()[0], Product.list()[0]));
-        Post.add(new Post('Polecam dobrev3 !',User.list()[0], Product.list()[0]));
-        Post.add(new Post('Polecam dobre ! dla 2',User.list()[1], Product.list()[1]));
-        Post.add(new Post('Polecam dobre ! dla 3',User.list()[2], Product.list()[2]));
-    }
 }
-
-//Post.initData();
 
 module.exports = Post;
