@@ -19,10 +19,11 @@ class User {
 
     //dodawanie obiektu do bazy
     static add(user) {
-
+      var hashPassword = User.hashPassword(user.password);
+      
       return db.execute(
         'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
-        [user.firstName, user.lastName, user.password, user.email, user.picturePath]
+        [user.firstName, user.lastName, hashPassword, user.email, user.picturePath]
       );
     }
 
@@ -69,19 +70,8 @@ class User {
       return bcrypt.hash(plainPassword, 12);
     }
 
-    static comparePassword(plainPassword,userId) {
-      //wołanie asynchroniczne
-      //zwraca promesę, a nie wynik bezpośrednio
-      var flag;
-      db.execute('select Password from Users where IdUser = ?',
-      [userId]).then( ([data, metadata]) => { 
-        var rows = JSON.parse(JSON.stringify(data[0]));
-        flag = bcrypt.compare(plainPassword, rows.Password);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-      return true;
+    static comparePassword(plainPassword,hashPassword) {
+      return bcrypt.compare(plainPassword, hashPassword);
     }
 }
 
