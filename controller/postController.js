@@ -20,32 +20,32 @@ router.get("/showPosts", (req, res, next) => {
 
 router.get("/showProductPosts", (req, res, next) => {
     var id = parseInt(req.query.product_id);
-  
+
     Product.details(id)
-      .then(([product, metadata]) => {
-    
-        Post.listProductPosts(id)
-          .then(([postsList, metadata]) => {
-            res.render('posts/productPosts', {
-              pageTitle: "Product posts",
-              formAction: "add",
-              product: product[0],
-              postsList: postsList
-            });
-          })
-          .catch(err => {
+        .then(([product, metadata]) => {
+
+            Post.listProductPosts(id)
+                .then(([postsList, metadata]) => {
+                    res.render('posts/productPosts', {
+                        pageTitle: "Product posts",
+                        formAction: "add",
+                        product: product[0],
+                        postsList: postsList
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        })
+        .catch(err => {
             console.log(err);
-          });
-  
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  });
+        });
+});
 
 router.get("/showEditForm", (req, res, next) => {
     var id = parseInt(req.query.post_id);
-    
+
     Post.details(id)
         .then(([post, metadata]) => {
             res.render('posts/postForm', {
@@ -72,13 +72,13 @@ router.post("/add", (req, res, next) => {
         .then(([userData, metadata]) => {
 
             Product.details(id)
-            .then(([productData, metadata]) => {
-                Post.add(text,userData[0].IdUser,productData[0].IdProduct);
-                res.redirect("/posts/showProductPosts?product_id=" + id);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+                .then(([productData, metadata]) => {
+                    Post.add(text, userData[0].IdUser, productData[0].IdProduct);
+                    res.redirect("/posts/showProductPosts?product_id=" + id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
 
         })
         .catch(err => {
@@ -88,8 +88,12 @@ router.post("/add", (req, res, next) => {
 
 router.get("/delete", (req, res, next) => {
     var id = parseInt(req.query.post_id);
-    Post.delete(id,req.session.loggedUser.id);
-    res.redirect("/posts/showPosts");
+    Post.delete(id, req.session.loggedUser.id).then(() => {
+            res.redirect("/posts/showPosts");
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 module.exports.route = router;
