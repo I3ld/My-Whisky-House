@@ -1,11 +1,6 @@
 const bcrypt = require('bcryptjs');
 const db = require('../db/mysql');
 
-//licznik id
-let nextId = 1;
-//ekstensja klasy (wszystkie obiekty)
-const userExtent = [];
-
 class User {
     //parametr id jest na końcu, bo jest opcjonalny
     constructor(email, firstName, lastName, picturePath, password, id) {
@@ -19,12 +14,14 @@ class User {
 
     //dodawanie obiektu do bazy
     static add(user) {
-      var hashPassword = User.hashPassword(user.password);
-      
-      return db.execute(
-        'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
-        [user.firstName, user.lastName, hashPassword, user.email, user.picturePath]
-      );
+      User.hashPassword(user.password).then( (result) => {
+        return db.execute(
+          'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
+          [user.firstName, user.lastName, result, user.email, user.picturePath]
+        );
+      }).catch(err => {
+        console.log(err);
+      });
     }
 
     //pobranie listy obiektów
@@ -71,6 +68,8 @@ class User {
     }
 
     static comparePassword(plainPassword,hashPassword) {
+      //wołanie asynchroniczne
+      //zwraca promesę, a nie wynik bezpośrednio
       return bcrypt.compare(plainPassword, hashPassword);
     }
 }
