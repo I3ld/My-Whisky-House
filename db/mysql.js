@@ -7,6 +7,7 @@ const pool = db.createPool({
   password: '123456',
   database: 'my-whisky-house-db',
   multipleStatements: true,
+  dateStrings: 'date',
   charset: 'utf8',
   connectTimeout: 10000
 });
