@@ -38,12 +38,12 @@ class Producer {
     //usuwanie obiektu po id
     static delete(id) {
         db.execute(
-            'update Product set IdProducer = NULL where IdProducer = ?;',
+            'delete from Post where IdProducer = ?;',
             [id]
           );
 
         return db.execute(
-            'delete from Producer where IdProducer = ?',
+            'delete from Producer where IdProducer = ?;',
             [id]
           );
     }
