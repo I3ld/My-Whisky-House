@@ -31,17 +31,12 @@ class Producer {
     //edycja obiektu
     static edit(producer) {
         return db.execute(
-            'update Producer set Name = ?, Country = ?, Founded_Date = ?, Owner = ? where idProducer = ?',
-            [producer.name, producer.country, producer.dateOfStart, producer.owner, ]
+            'update Producer set Name = ?, Country = ?, Founded_Date = ?, Owner = ? where IdProducer = ?',
+            [producer.name, producer.country, producer.dateOfStart, producer.owner, producer.id]
           );
     }
     //usuwanie obiektu po id
     static delete(id) {
-        db.execute(
-            'delete from Post where IdProducer = ?;',
-            [id]
-          );
-
         return db.execute(
             'delete from Producer where IdProducer = ?;',
             [id]
