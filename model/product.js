@@ -42,7 +42,7 @@ class Product {
     //usuwanie obiektu po id
     static delete(id) {
         db.execute(
-            'delete from Post where IdProduct = ?',
+            'delete from Product where IdProduct = ?',
             [id]
           );
 
