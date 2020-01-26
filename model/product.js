@@ -35,8 +35,8 @@ class Product {
     //edycja obiektu
     static edit(product) {
         return db.execute(
-            'update Product set Name = ?, Volume = ?, Capacity = ?, Price = ?, Rate = ?, Picture = ?, Note = ?, Description = ? where IdProduct = ?',
-            [product.name, product.value, product.capacity, product.price, product.rate, product.picturePath, product.note, product.description, product.id]
+            'update Product set Name = ?, Volume = ?, Capacity = ?, Price = ?, Rate = ?, Picture = ?, Note = ?, Description = ?, IdProducer = ? where IdProduct = ?',
+            [product.name, product.value, product.capacity, product.price, product.rate, product.picturePath, product.note, product.description, product.producer.IdProducer, product.id]
           );
     }
     //usuwanie obiektu po id
