@@ -19,6 +19,16 @@ function validateForm() {
         email.setCustomValidity('');
     }
 
+    if (email.value == "" || (email.value).match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]{1,6}\.(pl|com)$/)) {
+        email.setCustomValidity("Email invalid!");
+        email.style.borderColor = "red";
+        email.style.borderWidth = "thick";
+        errorsTab += "Email regex invalid! <br />";
+    } else {
+        email.style.borderColor = "green";
+        email.setCustomValidity('');
+    }
+
     //password
     if (password.value == "" || (password.value).match(/^\s+$/)) {
         password.setCustomValidity("Password invalid!");
