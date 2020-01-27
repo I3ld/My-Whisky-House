@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const db = require('../db/mysql');
+const validator = require('../public/js/backendValidator');
 
 class User {
     //parametr id jest na końcu, bo jest opcjonalny
@@ -14,6 +15,12 @@ class User {
 
     //dodawanie obiektu do bazy
     static add(user) {
+      if (validator.isValid(user.firstName)&&
+          validator.isValid(user.lastName)&&
+          validator.isPasswordValid(user.password)&&
+          validator.isEmailValid(user.email)&&
+          validator.isPicturePathValid(user.picturePath)   
+      ) {
       User.hashPassword(user.password).then( (result) => {
         return db.execute(
           'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
@@ -23,6 +30,7 @@ class User {
         console.log(err);
       });
     }
+    }
 
     //pobranie listy obiektów
     //metoda nie powinna pobierać nadmiarowych danych
@@ -31,34 +39,49 @@ class User {
     static list() {
       return db.execute('select * from Users');
     }
+
     //edycja obiektu
     static edit(user) {
+      if (validator.isValid(user.firstName)&&
+          validator.isValid(user.lastName)&&
+          validator.isPasswordValid(user.password)&&
+          validator.isValid(user.email)&&
+          validator.isPicturePathValid(user.picturePath)  &&
+          validator.isValidId(user.id) 
+      ) {
       return db.execute(
         'update Users set FirstName = ?, LastName = ?, Password = ?, Email = ?, Picture = ? where IdUser = ?',
         [user.firstName, user.lastName, user.password, user.email, user.picturePath, user.id]
       );
+      }
     }
 
     //usuwanie obiektu po id
     static delete(id) {
+      if (validator.isValidId(id)){
       return db.execute(
         'delete from Users where IdUser = ?',
         [id]
       );
+      }
     }
     //pobieranie obiektu do widoku szczegółów
     //może być potrzebne pobranie dodatkowych danych
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
+      if (validator.isValidId(id)){
       return db.execute('select * from Users where IdUser = ?',
       [id]
       );
+      }
     }
     
     static findByEmail(email) {
+      if (validator.isValid(email)){
       return db.execute('select * from Users where Email = ?',
       [email]
       );
+      }
     }
 
     static hashPassword(plainPassword) {
