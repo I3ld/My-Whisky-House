@@ -14,10 +14,11 @@ class Post {
 
     //dodawanie obiektu do bazy
     static add(text, userId, productId) {
+        var currentDate = new Date().toISOString().slice(0,19);
         if (validator.isValid(text) && validator.isValidId(userId) && validator.isValidId(productId)) {
             return db.execute(
-                'insert into Post (Text, IdProduct, IdUser) values (?, ?, ?)',
-                [text, productId, userId]
+                'insert into Post (Text, Added_Date, IdProduct, IdUser) values (?, ?, ?, ?)',
+                [text, currentDate, productId, userId]
             );
         }
     }
@@ -32,24 +33,25 @@ class Post {
 
     static listUserPosts(idUser) {
         if (validator.isValidId(idUser)) {
-            return db.execute('SELECT Post.IdPost, Post.Text, Users.Picture as UserPicture, Users.IdUser as UserId, Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Users.IdUser = ?;',
+            return db.execute('SELECT Post.IdPost, Post.Text, Post.Added_Date, Users.Picture as UserPicture, Users.IdUser as UserId, Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Users.IdUser = ?;',
                 [idUser]);
         }
     }
 
     static listProductPosts(idProduct) {
         if (validator.isValidId(idProduct)) {
-            return db.execute('select Post.IdPost, Post.Text, Users.FirstName as UserFirstName, Users.LastName as UserLastname, Users.Picture UserPicture, Users.DateOfBirth as UserDateOfBirth from Post LEFT JOIN Users ON Users.IdUser=Post.IdUser where IdProduct = ?;',
+            return db.execute('select Post.IdPost, Post.Text, Post.Added_Date, Users.FirstName as UserFirstName, Users.LastName as UserLastname, Users.Picture UserPicture, Users.DateOfBirth as UserDateOfBirth from Post LEFT JOIN Users ON Users.IdUser=Post.IdUser where IdProduct = ?;',
                 [idProduct]);
         }
     }
 
     //edycja obiektu
     static edit(id, text) {
+        var currentDate = new Date().toISOString().slice(0,19);
         if (validator.isValidId(id) && validator.isValid(text)) {
             return db.execute(
-                'update Post set Text = ? where IdPost = ?',
-                [text, id]
+                'update Post set Text = ?, Added_Date = ? where IdPost = ?',
+                [text, currentDate, id]
             );
         }
     }
@@ -69,7 +71,7 @@ class Post {
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
         if (validator.isValidId(id)) {
-            return db.execute('SELECT Post.IdPost, Post.Text, Users.IdUser as UserId, Users.Picture as UserPicture,  Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.IdProduct as ProductId, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser  INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Post.IdPost = ?;',
+            return db.execute('SELECT Post.IdPost, Post.Text, Post.Added_Date, Users.IdUser as UserId, Users.Picture as UserPicture,  Users.FirstName as UserFirstName, Users.LastName as UserLastName, Product.IdProduct as ProductId, Product.Name as ProductName, Product.Volume as ProductVolume, Product.Capacity as ProductCapacity, Product.Price as ProductPrice FROM Post INNER JOIN Users ON Users.IdUser=Post.IdUser  INNER JOIN Product ON Product.IdProduct=Post.IdProduct where Post.IdPost = ?;',
                 [id]);
         }
     }
