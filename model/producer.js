@@ -53,6 +53,11 @@ class Producer {
     //usuwanie obiektu po id
     static delete(id) {
         if (validator.isValidId(id)) {
+            db.execute(
+                'update Product set IdProducer = NULL where IdProducer = ?;',
+                [id]
+            );
+
             return db.execute(
                 'delete from Producer where IdProducer = ?;',
                 [id]
