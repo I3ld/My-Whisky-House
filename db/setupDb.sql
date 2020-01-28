@@ -1,6 +1,7 @@
 CREATE TABLE Post (
     IdPost integer NOT NULL AUTO_INCREMENT,
     Text varchar(600) NOT NULL,
+    Added_Date DATETIME NOT NULL,
     IdProduct integer NOT NULL,
     IdUser integer NOT NULL,
     CONSTRAINT Post_pk PRIMARY KEY (IdPost)
@@ -87,20 +88,20 @@ VALUES ('BALLANTINES BRASIL Z NUTĄ LIMONKI WHISKY', '35', '0.7','59.99','4','ht
                                 INSERT INTO Product (Name, Volume, Capacity, Price, Rate, Picture, Note, Description, IdProducer)
 VALUES ('HIGHLAND PARK VIKING SCARS 10 YO', '35', '0.7','10.499','9','https://winnicalidla.pl/media/catalog/product/h/i/highland_park_10_yo.png','Highland Park jest jedyną destylarnią gdzie wciąż wiele prac wykonuje się ręcznie przestrzegając pięciu pierwotnych reguł produkcji szkockiej whisky.','Jej smak przepełniają dojrzałe owoce cytrusowe, wanilia i pieprzne przyprawy uzupełnione lekko dymnym aromatem torfu kwiatowego.',1);
 
-INSERT INTO Post (Text, IdProduct, IdUser)
-VALUES ('Polecam dobre !',1, 2);
+INSERT INTO Post (Text, Added_Date, IdProduct, IdUser)
+VALUES ('Polecam dobre !','2020-01-28 22:24:15',1, 2);
 
-INSERT INTO Post (Text, IdProduct, IdUser)
-VALUES ('Polecam dobrev2 !',1, 1);
+INSERT INTO Post (Text, Added_Date, IdProduct, IdUser)
+VALUES ('Polecam dobrev2 !','1939-11-02 13:24:15',1, 1);
 
-INSERT INTO Post (Text, IdProduct, IdUser)
-VALUES ('Polecam dobrev3 !',1, 1);
+INSERT INTO Post (Text, Added_Date, IdProduct, IdUser)
+VALUES ('Polecam dobrev3 !','2020-01-22 21:24:15',1, 1);
 
-INSERT INTO Post (Text, IdProduct, IdUser)
-VALUES ('Polecam dobre ! dla 2',2, 2);
+INSERT INTO Post (Text, Added_Date, IdProduct, IdUser)
+VALUES ('Polecam dobre ! dla 2','2020-01-18 11:24:11',2, 2);
 
-INSERT INTO Post (Text, IdProduct, IdUser)
-VALUES ('Polecam dobre ! dla 3',3, 3);
+INSERT INTO Post (Text, Added_Date, IdProduct, IdUser)
+VALUES ('Polecam dobre ! dla 3','2020-01-20 22:01:15',3, 3);
 
 
 
