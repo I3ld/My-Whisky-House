@@ -19,7 +19,7 @@ function validateForm() {
         email.setCustomValidity('');
     }
 
-    if (email.value == "" || (email.value).match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]{1,6}\.(pl|com)$/)) {
+    if (!(email.value).match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]{1,6}\.(pl|com)$/)) {
         email.setCustomValidity("Email invalid!");
         email.style.borderColor = "red";
         email.style.borderWidth = "thick";
