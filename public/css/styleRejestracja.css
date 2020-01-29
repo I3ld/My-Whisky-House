@@ -65,7 +65,8 @@ button:hover {
 .resetbtn,
 .signupbtn {
     float: left;
-    width: 50%;
+    width: 7%;
+    margin: 7px;
 }
 
 main .userPicture {
