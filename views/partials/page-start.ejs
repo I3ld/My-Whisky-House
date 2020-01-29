@@ -22,7 +22,7 @@
         </ul>
     </menu>
     <br>
-     <% if(isUserLoggedIn && formAction !== 'userPanel') { %>
+     <% if(isUserLoggedIn && formAction !== 'edit') { %>
       <span class="userInfo">Zalogowany jako: <b><%= loggedUser.firstName %> <%= loggedUser.lastName %></b></span>
     <% } %>
 
