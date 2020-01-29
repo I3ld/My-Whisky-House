@@ -143,7 +143,7 @@ function validateForm() {
         picture.setCustomValidity('');
     }
 
-    if (!(picture.value).match("(https?:\/\/.*\.(?:png|jpg))")) {
+    if (!(picture.value).match("(https?:\/\/.*\.(?:png|jpg|PNG|JPG))")) {
         picture.setCustomValidity("Price invalid!");
         picture.style.borderColor = "red";
         picture.style.borderWidth = "thick";

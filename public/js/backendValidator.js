@@ -38,7 +38,7 @@ class Validator {
 
     static isPicturePathValid(path){
         //console.log(" isPicturePathValid: " + /(https?:\/\/.*\.(?:png|jpg))/.test(path));
-        return /(https?:\/\/.*\.(?:png|jpg))/.test(path);
+        return /(https?:\/\/.*\.(?:png|jpg|PNG|JPG))/.test(path);
     } 
 
     static isPasswordValid(password){
