@@ -14,7 +14,8 @@ class Post {
 
     //dodawanie obiektu do bazy
     static add(text, userId, productId) {
-        var currentDate = new Date().toISOString().slice(0,19);
+        var date = new Date();
+        var currentDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,19);
         if (validator.isValid(text) && validator.isValidId(userId) && validator.isValidId(productId)) {
             return db.execute(
                 'insert into Post (Text, Added_Date, IdProduct, IdUser) values (?, ?, ?, ?)',
@@ -47,7 +48,8 @@ class Post {
 
     //edycja obiektu
     static edit(id, text) {
-        var currentDate = new Date().toISOString().slice(0,19);
+        var date = new Date();
+        var currentDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,19);
         if (validator.isValidId(id) && validator.isValid(text)) {
             return db.execute(
                 'update Post set Text = ?, Added_Date = ? where IdPost = ?',
