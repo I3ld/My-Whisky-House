@@ -13,25 +13,30 @@
 
 <main>
     <div class="userDetails">
-        <img src="<%= user.Picture %>" class="userPicture"><br><br>
-        <label class="firstName">First name: <b><%= user.FirstName %></b></label><br><br>
-        <label class="lastName">Last name: <b><%= user.LastName %></b></label> <br><br>
-        <label class="email">Email: <b><%= user.Email %></b></label> <br><br>
-        <label class="postsCount">Added posts: <b><%= user.PostsCount %></b></label> </br></br>
+        <div>
+            <img src="<%= user.Picture %>" class="userPicture"><br><br>
+            <label class="firstName">First name: <b><%= user.FirstName %></b></label><br><br>
+            <label class="lastName">Last name: <b><%= user.LastName %></b></label> <br><br>
+            <label class="email">Email: <b><%= user.Email %></b></label> <br><br>
+            <label class="postsCount">Added posts: <b><%= user.PostsCount %></b></label> </br></br>
+        </div>
+        <div>
+            <button type="Usun" class="usunButton" onclick="location.href='/users/delete'">Usuń konto</button>
+        </div>
     </div>
-    <button type="Usun" class="usunButton" onclick="location.href='/users/delete'">Usuń konto</button>
-    </br></br>
+
+    </br>
     </hr>
-    <div class="errorsSpace">
-        <label class="errors" id="errors"></label>
-    </div>
     <h2>Account edit</h2>
     <p>Please fill in this form to edit an account.</p>
     <hr>
+    <div class="errorsSpace">
+        <label class="errors" id="errors"></label>
+    </div>
     <form name="myForm" action="/users/<%= formAction %>" method="post" onsubmit="return validateForm()">
         <div class="container">
             <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" value="<%= user.Email %>"> 
+            <input type="text" placeholder="Enter Email" name="email" value="<%= user.Email %>">
 
             <label for="first_name"><b>First name</b></label>
             <input type="text" placeholder="Enter first name" name="first_name" value="<%= user.FirstName %>">

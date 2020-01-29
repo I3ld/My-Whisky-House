@@ -44,10 +44,10 @@ main .usunButton {
     background-color: red;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px;
     border: none;
     cursor: pointer;
-    width: 10%;
+    width: 8%;
     opacity: 0.9;
 }
 
@@ -76,6 +76,11 @@ main .userPicture {
     padding: 1px;
     margin: 10px;
     width: 150px;   
+}
+
+main .userDetails {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Add padding to container elements */
