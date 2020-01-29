@@ -79,7 +79,7 @@ class User {
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
       if (validator.isValidId(id)){
-      return db.execute('select COUNT(Post.IdPost) as PostsCount, Users.FirstName, Users.LastName, Users.Email, Users.Picture from Users left join Post on Users.IdUser = Post.IdUser where Users.IdUser = ? group by Users.FirstName, Users.LastName, Users.Email, Users.Picture;',
+      return db.execute('select COUNT(Post.IdPost) as PostsCount, Users.IdUser ,Users.FirstName, Users.LastName, Users.Email, Users.Picture from Users left join Post on Users.IdUser = Post.IdUser where Users.IdUser = ? group by Users.IdUser, Users.FirstName, Users.LastName, Users.Email, Users.Picture order by Users.IdUser;',
       [id]
       );
       }
