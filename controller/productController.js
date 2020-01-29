@@ -10,7 +10,8 @@ router.get("/", (req, res, next) => {
   Product.list()
     .then(([productsList, metadata]) => {
       res.render('products/index', {
-        productsList: productsList
+        productsList: productsList,
+        formAction: "listProducts"
       });
     })
     .catch(err => {
@@ -53,6 +54,22 @@ router.get("/showEditForm", authCheck, (req, res, next) => {
         formAction: "edit",
         producersList: producersList,
         product: product
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+router.get("/showDetails", authCheck, (req, res, next) => {
+  var id = parseInt(req.query.product_id);
+
+  Product.details(id)
+    .then(([product, metadata]) => {
+      res.render('products/details', {
+        pageTitle: "Show product",
+        formAction: "details",
+        product: product[0]
       });
     })
     .catch(err => {
@@ -104,23 +121,6 @@ router.post("/edit", authCheck, (req, res, next) => {
         productId);
       Product.edit(editProduct);
       res.redirect("/products/showDetails?product_id=" + productId);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-
-router.get("/showDetails", authCheck, (req, res, next) => {
-  var id = parseInt(req.query.product_id);
-
-  Product.details(id)
-    .then(([product, metadata]) => {
-      res.render('products/details', {
-        pageTitle: "Show product",
-        formAction: "details",
-        product: product[0]
-      });
     })
     .catch(err => {
       console.log(err);

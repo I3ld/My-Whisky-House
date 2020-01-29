@@ -39,6 +39,18 @@ button {
     opacity: 0.9;
 }
 
+/* Set a style for all buttons */
+main .usunButton {
+    background-color: red;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    opacity: 0.9;
+}
+
 button:hover {
     opacity: 1;
 }
@@ -54,6 +66,15 @@ button:hover {
 .signupbtn {
     float: left;
     width: 50%;
+}
+
+main .userPicture {
+    float: left;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1px;
+    margin: 10px;
+    width: 150px;   
 }
 
 /* Add padding to container elements */

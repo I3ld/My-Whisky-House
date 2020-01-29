@@ -10,6 +10,7 @@ router.get("/showPosts", (req, res, next) => {
         .then(([postsList, metadata]) => {
             res.render('posts/allPosts', {
                 pageTitle: "All posts",
+                formAction: "listPosts",
                 postsList: postsList
             });
         })

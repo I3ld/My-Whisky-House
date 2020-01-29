@@ -49,16 +49,25 @@ class User {
           validator.isPicturePathValid(user.picturePath)  &&
           validator.isValidId(user.id) 
       ) {
-      return db.execute(
-        'update Users set FirstName = ?, LastName = ?, Password = ?, Email = ?, Picture = ? where IdUser = ?',
-        [user.firstName, user.lastName, user.password, user.email, user.picturePath, user.id]
-      );
+        User.hashPassword(user.password).then( (result) => {
+          return db.execute(
+            'update Users set FirstName = ?, LastName = ?, Password = ?, Email = ?, Picture = ? where IdUser = ?',
+            [user.firstName, user.lastName, result, user.email, user.picturePath, user.id]
+          );
+        }).catch(err => {
+          console.log(err);
+        });
       }
     }
 
     //usuwanie obiektu po id
     static delete(id) {
       if (validator.isValidId(id)){
+        db.execute(
+          'delete from Post where IdUser = ?',
+          [id]
+        );
+
       return db.execute(
         'delete from Users where IdUser = ?',
         [id]
@@ -70,7 +79,7 @@ class User {
     //np. przez złączenia JOIN w relacyjnej bazie danych
     static details(id) {
       if (validator.isValidId(id)){
-      return db.execute('select * from Users where IdUser = ?',
+      return db.execute('select COUNT(Post.IdPost) as PostsCount, Users.FirstName, Users.LastName, Users.Email, Users.Picture from Users left join Post on Users.IdUser = Post.IdUser where Users.IdUser = ? group by Users.FirstName, Users.LastName, Users.Email, Users.Picture;',
       [id]
       );
       }
@@ -93,6 +102,7 @@ class User {
     static comparePassword(plainPassword,hashPassword) {
       //wołanie asynchroniczne
       //zwraca promesę, a nie wynik bezpośrednio
+      bcrypt.co
       return bcrypt.compare(plainPassword, hashPassword);
     }
 }

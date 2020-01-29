@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/styleRejestracja.css" />
+    <script type="text/javascript" src="/js/rejestracjaValidator.js"></script>
+    <title>Edit User</title>
+</head>
+
+<% include ../partials/page-start %>
+
+<main>
+    <div class="userDetails">
+        <img src="<%= user.Picture %>" class="userPicture"><br><br>
+        <label class="firstName">First name: <b><%= user.FirstName %></b></label><br><br>
+        <label class="lastName">Last name: <b><%= user.LastName %></b></label> <br><br>
+        <label class="email">Email: <b><%= user.Email %></b></label> <br><br>
+        <label class="postsCount">Added posts: <b><%= user.PostsCount %></b></label> </br></br>
+    </div>
+    <button type="Usun" class="usunButton" onclick="location.href='/users/delete'">Usuń konto</button>
+    </br></br>
+    </hr>
+    <div class="errorsSpace">
+        <label class="errors" id="errors"></label>
+    </div>
+    <h2>Account edit</h2>
+    <p>Please fill in this form to edit an account.</p>
+    <hr>
+    <form name="myForm" action="/users/<%= formAction %>" method="post" onsubmit="return validateForm()">
+        <div class="container">
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" value="<%= user.Email %>"> 
+
+            <label for="first_name"><b>First name</b></label>
+            <input type="text" placeholder="Enter first name" name="first_name" value="<%= user.FirstName %>">
+
+            <label for="last_name"><b>Last name</b></label>
+            <input type="text" placeholder="Enter last name" name="last_name" value="<%= user.LastName %>">
+
+            <label for="picturePath"><b>Picrure</b></label>
+            <input type="text" placeholder="Enter picrure path" name="picturePath" value="<%= user.Picture %>">
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw">
+
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat">
+
+            <div class="clearfix">
+                <button type="reset" class="resetbtn">Reset</button>
+                <button type="submit" class="signupbtn" onclick="validateForm()">Edytuja</button>
+            </div>
+        </div>
+    </form>
+</main>
+
+<% include ../partials/page-end %>

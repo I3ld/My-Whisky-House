@@ -8,6 +8,7 @@ router.get("/", (req, res, next) => {
     .then(([producersList, metadata]) => {
       res.render('producers/producerList', {
         pageTitle: "All producers",
+        formAction: "listProducers",
         producersList: producersList
       });
     })
