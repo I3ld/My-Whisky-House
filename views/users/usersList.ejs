@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/style.css" />
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/styleRejestracja.css" />
+    <link rel='stylesheet' type='text/css' media='screen' href="/css/styleIndex.css" />
+    <title>Home</title>
+</head>
+
+<% include ../partials/page-start %>
+    <main>
+        <h2>Uytkownicy</h2>
+        <fieldset>
+            <legend>All users</legend>
+
+            <% for(var i = 0; i < usersList.length; i++){ %>
+            <div class="itemUser">
+                <img src="<%= usersList[i].Picture %>">
+                <div class="userDescribe">
+                    <label class="Id">ID: <%= usersList[i].IdUser %></label></br>
+                    <label class="FirstName">First Name: <%= usersList[i].FirstName %></label></br>
+                    <label class="LastName">Last name: <%= usersList[i].LastName %></label></br>
+                    <label class="PostsCount">Added posts: <%= usersList[i].PostsCount %></label>
+                </div>
+            </div>
+            <hr />
+            <% } %>
+
+        </fieldset>
+    </main>
+
+<% include ../partials/page-end %>

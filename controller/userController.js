@@ -6,9 +6,9 @@ const authCheck = require('../middleware/authCheck');
 
 router.get("/", authCheck, (req, res, next) => {
     User.list()
-        .then(([userList, metadata]) => {
-            res.render('users/userList', {
-                userList: userList,
+        .then(([usersList, metadata]) => {
+            res.render('users/usersList', {
+                usersList: usersList,
                 formAction: "listUsers"
             }); 
         })

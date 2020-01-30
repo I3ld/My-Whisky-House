@@ -37,7 +37,7 @@ class User {
     //(np. przez złączenia JOIN w relacyjnej bazie danych)
     //które nie będą wyświetlane na liście
     static list() {
-      return db.execute('select * from Users');
+      return db.execute('select COUNT(Post.IdPost) as PostsCount, Users.IdUser ,Users.FirstName, Users.LastName, Users.Email, Users.Picture from Users left join Post on Users.IdUser = Post.IdUser group by Users.IdUser, Users.FirstName, Users.LastName, Users.Email, Users.Picture order by Users.IdUser;');
     }
 
     //edycja obiektu
