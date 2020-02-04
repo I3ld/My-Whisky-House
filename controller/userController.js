@@ -70,9 +70,9 @@ router.post("/edit",  authCheck, (req, res, next) => {
     const plainPassword = req.body.psw;
     User.hashPassword(plainPassword)
         .then(hash1 => {
-            const editUser = new User(req.body.email, req.body.first_name, req.body.last_name, req.body.picturePath, hash1);
+            const editUser = new User(req.body.email, req.body.first_name, req.body.last_name, req.body.picturePath, hash1,req.session.loggedUser.id);
             User.edit(editUser);
-            res.redirect("/showUserPanel");
+            res.redirect("/users/showUserPanel");
         })
         .catch(err => {
             console.log(err);
