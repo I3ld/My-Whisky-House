@@ -56,7 +56,7 @@ router.post("/add", (req, res, next) => {
     const plainPassword = req.body.psw;
     User.hashPassword(plainPassword)
         .then(hash1 => {
-            const newUser = new User(req.body.email, req.body.first_name, req.body.last_name, req.body.picturePath, hash1, req.session.loggedUser.id);
+            const newUser = new User(req.body.email, req.body.first_name, req.body.last_name, req.body.picturePath, hash1);
             User.add(newUser);
             req.flash('authError', 'Witaj ' + req.body.first_name + ' ' + req.body.last_name + '. Konto zostało utworzone !');
             res.redirect("/products");
