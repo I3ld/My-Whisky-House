@@ -15,16 +15,6 @@ For development, you will only need Node.js and a node packages.
   Just go on [official Node.js website](https://nodejs.org/) and download the installer.
 Also, be sure to have `git` available in your PATH, `npm` might need it (You can find git [here](https://git-scm.com/)).
 
-- #### Node installation on Ubuntu
-
-  You can install nodejs and npm easily with apt install, just run the following commands.
-
-      $ sudo apt install nodejs
-      $ sudo apt install npm
-
-- #### Other Operating Systems
-  You can find more information about the installation on the [official Node.js website](https://nodejs.org/) and the [official NPM website](https://npmjs.org/).
-
 If the installation was successful, you should be able to run the following command.
 
     $ node --version
@@ -45,3 +35,19 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     $ cd My-Whisky-House
     $ node app.js
     
+## Set up databse
+For databse, you will only need docker.
+
+- #### Docker toolbox installation
+ Just go on [official Docker website](https://docs.docker.com/toolbox/) and download the installer.
+ 
+## Visualisation
+Screenshots of crucial funnctionality on page: 
+[View1](https://ibb.co/TLG00P1)
+[View2](https://ibb.co/6PpLCgv)
+[View3](https://ibb.co/hHDNXrV)
+[View4](https://ibb.co/F86VJRW)
+[View5](https://ibb.co/SwbwwPm)
+[View6](https://ibb.co/GWY5vH5)
+[View7](https://ibb.co/Bj9rv30)
+[View8](https://ibb.co/kDyp3QZ)
