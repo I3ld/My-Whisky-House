@@ -23,8 +23,8 @@ class User {
       ) {
       User.hashPassword(user.password).then( (result) => {
         return db.execute(
-          'insert into Users (FirstName, LastName, Password, Email, Picture) values (?, ?, ?, ?, ?)',
-          [user.firstName, user.lastName, result, user.email, user.picturePath]
+          'INSERT INTO Users(FirstName, LastName, Password, Email, Picture) SELECT ?,?,?,?,? FROM Users WHERE not exists (select 1 from Users where Users.email = ? ) LIMIT 1;',
+          [user.firstName, user.lastName, result, user.email, user.picturePath, user.email]
         );
       }).catch(err => {
         console.log(err);
@@ -102,7 +102,6 @@ class User {
     static comparePassword(plainPassword,hashPassword) {
       //wołanie asynchroniczne
       //zwraca promesę, a nie wynik bezpośrednio
-      bcrypt.co
       return bcrypt.compare(plainPassword, hashPassword);
     }
 }
