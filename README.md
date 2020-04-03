@@ -7,8 +7,24 @@ App contains whisky with details and producers. Provides users authorization lik
 
 ## Requirements
 
-For development, you will only need Node.js and a node packages.
+For development, you will need Node.js and Docker.
 
+## Docker
+For databse, you will only need docker.
+
+- #### Docker toolbox installation
+ Just go on [official Docker website](https://docs.docker.com/toolbox/) and download the installer.
+ 
+ - #### Set up databse
+ Just run below commands in CLI docker toolbox to create image and container for mysql databse:
+```
+cd My-Whisky-House\db
+docker build -t my-whisky-house-mysql-image .
+docker run -p 3306:3306 --name my-whisky-house-mysql-db -d my-whisky-house-mysql-image
+docker logs <hash>
+docker exec -it my-whisky-house-mysql-db /bin/bash
+mysql -uadmin -p123456
+```
 ### Node
 - #### Node installation on Windows
 
@@ -35,19 +51,15 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     $ cd My-Whisky-House
     $ node app.js
     
-## Set up databse
-For databse, you will only need docker.
-
-- #### Docker toolbox installation
- Just go on [official Docker website](https://docs.docker.com/toolbox/) and download the installer.
+Go to: http://localhost:3000/
  
 ## Visualisation
 Screenshots of crucial funnctionality on page: 
-[View1](https://ibb.co/TLG00P1)
-[View2](https://ibb.co/6PpLCgv)
-[View3](https://ibb.co/hHDNXrV)
-[View4](https://ibb.co/F86VJRW)
-[View5](https://ibb.co/SwbwwPm)
-[View6](https://ibb.co/GWY5vH5)
-[View7](https://ibb.co/Bj9rv30)
-[View8](https://ibb.co/kDyp3QZ)
+- https://ibb.co/TLG00P1
+- https://ibb.co/6PpLCgv
+- https://ibb.co/hHDNXrV
+- https://ibb.co/F86VJRW
+- https://ibb.co/SwbwwPm
+- https://ibb.co/GWY5vH5
+- https://ibb.co/Bj9rv30
+- https://ibb.co/kDyp3QZ
